@@ -12,9 +12,10 @@ public class Data {
     }
 
 
-    //Jang
+    
     //Set
 
+    //Jang 5/10
     public void setSubjects(){
         
         //อันนี้คือตัวอย่างการ สร้างวิชาเเละเเอด Lecture เเละ Lab เข้าไปในวิชานั้น 
@@ -38,32 +39,13 @@ public class Data {
 
     //Get
 
+    //Wa 5/10
     public void displayDataById(String id){
-        for (Subject s : subjects){
-            if(s.getId().equals(id)){
-                System.out.printf("รหัสวิชา: %s | ชื่อวิชา: %s | หน่วยกิตรวม: %d\n", s.getId(), s.getName(), s.getTotalCredit());
-                for(CourseComponent Lecture : s.getAllLecture()){
-                    System.out.printf("     รหัสวิชา: %s | ชื่อวิชา: %s | หน่วยกิต: %d | หมู่เรียน: %d | วัน-เวลา: %s | ห้อง: %s | คณะที่เรียนได้: %s | รับ: %d | อาจารย์ผู้สอน: %s  \n",
-                                            s.getId(), s.getName(), Lecture.getCredit(), Lecture.getSection(), Lecture.getDayTimes()[0], Lecture.getRooms()[0], Lecture.getMajors()[0],Lecture.getMaxStudent(), Lecture.getTeacherName()[0]);
-                }
-                System.out.println();
-                for(CourseComponent Lab : s.getAllLab()){
-                    System.out.printf("     รหัสวิชา: %s | ชื่อวิชา: %s | หน่วยกิต: %d | หมู่เรียน: %d | วัน-เวลา: %s | ห้อง: %s | คณะที่เรียนได้: %s | รับ: %d | อาจารย์ผู้สอน: %s  \n",
-                            s.getId(), s.getName(), Lab.getCredit(), Lab.getSection(), Lab.getDayTimes()[0], Lab.getRooms()[0], Lab.getMajors()[0],Lab.getMaxStudent(), Lab.getTeacherName()[0]);
-                }
-            }
-        }
+
     }
 
-    public String getSubjectById(String id) {
-        for (Subject s : subjects) {
-            if (id.equals(s.getId())) {
-                return "รหัสวิชา: " + s.getId() + " | ชื่อวิชา: " + s.getName() + " | หน่วยกิต: " + s.getTotalCredit();
-            }
-        }
-        String str = new String ( "ไม่พบข้อมูลของวิชา ");
-
-        return str + id;
+    public ArrayList<Subject> getSubjects(String id) {
+        return subjects;
     }
 
 
