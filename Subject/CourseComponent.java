@@ -34,7 +34,7 @@ public class CourseComponent {
         this.maxStudent = maxStudent;
 
         this.teacherNames = new ArrayList<>();
-        Collections.addAll(this.teacherNames, teacherName.split("."));
+        Collections.addAll(this.teacherNames, teacherName.split(","));
 
         set();
     }
@@ -42,7 +42,7 @@ public class CourseComponent {
 
     //safe 5/10
     public void set(){
-        
+
     }
 
 

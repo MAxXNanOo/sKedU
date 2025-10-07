@@ -27,6 +27,16 @@ public class Data {
         CourseComponent CourseComponent = new CourseComponent(1, 712, "วันศุกร์ 16:00-18:00", "E8404", "E29", 60, "Bunyarat");
         s1.addLab(lab);
         subjects.add(s1);
+        Subject s2 = new Subject("01130171-64", "การบัญชีการเงิน", 3);
+        CourseComponent lec2 = new CourseComponent(3, 700, "วันอังคาร 10:30-12:00,วันพฤหัสบดี 10:30-12:00", "LH2-201 , LH2-201 ", "Q20,Q34", 100, "Jee, hong");
+        s2.addLecture(lec2);
+        CourseComponent lec3 = new CourseComponent(3, 701, "วันพุธ 10:30-12:00,วันศุกร์ 10:30-12:00", "LH2-203 , LH2-212 ", "Q60,Q44", 100, "Jee, hong");
+        s2.addLecture(lec3);
+        CourseComponent lec4 = new CourseComponent(3, 702, "วันอังคาร 13:00-15:00,วันศุกร์ 13:00-15:00", "LH2-205 , LH2-212 ", "Q70,Q54", 100, "Jee, hong");
+        s2.addLecture(lec4);
+        CourseComponent lab2 = new CourseComponent(1, 706, "วันศุกร์ 9:00-12:00 ","LH2-205 , LH2-212 ", "Q70,Q54", 100, "Jee, hong");
+        s2.addLab(lab2);
+        subjects.add(s2);
     }
 
 
@@ -41,6 +51,52 @@ public class Data {
 
     //Wa 5/10
     public void displayDataById(String id){
+        for (Subject item : subjects) {
+            if(item.getId().equals(id)){
+                System.out.printf("รหัสวิชา : %s ชื่อวิชา: %s\n",item.getId(),item.getName());
+                int totalLabCredit = 0;
+                int totalLectureCredit = 0; 
+                if (!item.getAllLecture().isEmpty()) {
+                    CourseComponent lec = item.getAllLecture().get(0);
+                    totalLectureCredit = lec.getCredit();
+                }
+                if (!item.getAllLab().isEmpty()) {
+                    CourseComponent lab = item.getAllLab().get(0);
+                    totalLabCredit = lab.getCredit();
+                }
+                System.out.printf("หน่วยกิตรวม(แลป+บรรยาย): %d (บรรยาย: %d, แลป: %d)\n",
+                totalLectureCredit+totalLabCredit, totalLectureCredit, totalLabCredit);
+                System.out.printf("จำนวนหมู่บรรยายที่เปิดให้ลงทะเบียน: %d จำนวนแลปที่เปิดให้ลงทะเบียน: %d\n", item.getAllLecture().size(), item.getAllLab().size());
+                if (!item.getAllLecture().isEmpty()){
+                System.out.printf("เซคเรียน(บรรยาย):\n");
+                    for(CourseComponent lec : item.getAllLecture()){
+                        System.out.printf("%s ",lec.getSection());
+                        System.out.printf(String.join(",",lec.getDayTimes()));
+                        System.out.printf(" ห้องเรียน: "+String.join(",",lec.getRooms()));
+                        System.out.printf(" อาจารย์ผู้สอน: "+String.join("",lec.getTeacherNames()));
+                        System.out.printf(" คณะที่ลงทะเบียนได้ : "+String.join(" ",lec.getMajors()));
+                        System.out.printf(" จำนวนที่รับ: "+lec.getMaxStudent());
+                        System.out.printf("\n");
+                    }
+                }
+                else
+                    System.out.printf("\nรายวิชานี้ไม่มีหมู่บรรยายเปิดให้ลงทีเบียน\n");
+                if (!item.getAllLab().isEmpty()){
+                System.out.printf("เซคเรียน(แลป):\n");
+                    for(CourseComponent lab : item.getAllLab()){
+                        System.out.printf("%s ",lab.getSection());
+                        System.out.printf(String.join(", ", lab.getDayTimes()));
+                        System.out.printf(" ห้องเรียน: "+String.join(",",lab.getRooms()));
+                        System.out.printf(" อาจารย์ผู้สอน: "+String.join("",lab.getTeacherNames()));
+                        System.out.printf(" คณะที่ลงทะเบียนได้ : "+String.join(" ",lab.getMajors()));
+                        System.out.printf(" จำนวนที่รับ: "+lab.getMaxStudent());
+                        System.out.printf("\n");
+                    }
+                }
+                else
+                    System.out.printf("รายวิชานี้ไม่มีหมู่แลปเปิดให้ลงทะเบียน\n");
+            }
+        }
 
     }
 
