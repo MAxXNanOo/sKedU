@@ -129,6 +129,52 @@ public class Data {
 
     //Wa 5/10
     public void displayDataById(String id){
+        for (Subject item : subjects) {
+            if(item.getId().equals(id)){
+                System.out.printf("รหัสวิชา : %s ชื่อวิชา: %s\n",item.getId(),item.getName());
+                int totalLabCredit = 0;
+                int totalLectureCredit = 0; 
+                if (!item.getAllLecture().isEmpty()) {
+                    CourseComponent lec = item.getAllLecture().get(0);
+                    totalLectureCredit = lec.getCredit();
+                }
+                if (!item.getAllLab().isEmpty()) {
+                    CourseComponent lab = item.getAllLab().get(0);
+                    totalLabCredit = lab.getCredit();
+                }
+                System.out.printf("หน่วยกิตรวม(แลป+บรรยาย): %d (บรรยาย: %d, แลป: %d)\n",
+                totalLectureCredit+totalLabCredit, totalLectureCredit, totalLabCredit);
+                System.out.printf("จำนวนหมู่บรรยายที่เปิดให้ลงทะเบียน: %d จำนวนแลปที่เปิดให้ลงทะเบียน: %d\n", item.getAllLecture().size(), item.getAllLab().size());
+                if (!item.getAllLecture().isEmpty()){
+                System.out.printf("เซคเรียน(บรรยาย):\n");
+                    for(CourseComponent lec : item.getAllLecture()){
+                        System.out.printf("%s ",lec.getSection());
+                        System.out.printf(String.join(",",lec.getDayTimes()));
+                        System.out.printf(" ห้องเรียน: "+String.join(",",lec.getRooms()));
+                        System.out.printf(" อาจารย์ผู้สอน: "+String.join("",lec.getTeacherNames()));
+                        System.out.printf(" คณะที่ลงทะเบียนได้ : "+String.join(" ",lec.getMajors()));
+                        System.out.printf(" จำนวนที่รับ: "+lec.getMaxStudent());
+                        System.out.printf("\n");
+                    }
+                }
+                else
+                    System.out.printf("\nรายวิชานี้ไม่มีหมู่บรรยายเปิดให้ลงทีเบียน\n");
+                if (!item.getAllLab().isEmpty()){
+                System.out.printf("เซคเรียน(แลป):\n");
+                    for(CourseComponent lab : item.getAllLab()){
+                        System.out.printf("%s ",lab.getSection());
+                        System.out.printf(String.join(", ", lab.getDayTimes()));
+                        System.out.printf(" ห้องเรียน: "+String.join(",",lab.getRooms()));
+                        System.out.printf(" อาจารย์ผู้สอน: "+String.join("",lab.getTeacherNames()));
+                        System.out.printf(" คณะที่ลงทะเบียนได้ : "+String.join(" ",lab.getMajors()));
+                        System.out.printf(" จำนวนที่รับ: "+lab.getMaxStudent());
+                        System.out.printf("\n");
+                    }
+                }
+                else
+                    System.out.printf("รายวิชานี้ไม่มีหมู่แลปเปิดให้ลงทะเบียน\n");
+            }
+        }
 
     }
 
