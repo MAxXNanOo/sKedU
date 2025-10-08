@@ -7,7 +7,7 @@ import java.io.*;
 
 public class ReadCSV {
     public static void main(String[] args) {
-        String csvFile = "D:\\WORK\\sKedUTest\\KUdata\\copyKUKPS.csv"; // เปลี่ยนเป็น path ของคุณ
+        String csvFile = "KUdata/KUKPSForTest.csv"; // เปลี่ยนเป็น path ของคุณ
         String line;
         String csvSplitBy = ",";
         int index;
