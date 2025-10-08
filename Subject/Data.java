@@ -38,23 +38,25 @@ public class Data {
         String name = null;
         int totalCredit;
 
-        int credit;
-        int sec;
-        String dayTime;
-        String room;
-        String major;
-        int numAddmission;
-
+        int credit = 0;
+        int sec = 0;
+        String dayTime = null;
+        String room = null;
+        String major = null;
+        int maxStudent = 0;
+        String teacherName = null;
 
 
         String row;
         int index=-1;
         String pattern = "^(\\d{8}-\\d{2})(.*)$";
+        int lecORLab;
 
         try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(csvPath),"UTF-8"))){
 
             while((row = br.readLine()) != null){
                 String[] values = row.split(",");
+                lecORLab=-1;
                 for(String value : values){
                     if(value.matches("\\d{8}-\\d{2}.*")){
                         index = 0;
@@ -62,32 +64,49 @@ public class Data {
                         id = value.replace(pattern, "$1");
                         name = value.replace(pattern, "$1");
                     }
-                    else if(value.equals("")){
-                        System.out.printf("-");
+                    else if(index%15==1){
+                        totalCredit = Integer.parseInt(value);
+
+                        subject = new Subject(id, name, totalCredit);
+                        subjects.add(subject);
+                    }               
+                    else if(value.equals("") && index!= 0 && index!=1){
+                        // -_-
+                    }
+                    else if(index%15==2 || index%15==8){
+                        credit = Integer.parseInt(value);
+                        if(index == 2)
+                            lecORLab = 0;
+                        else
+                            lecORLab = 1;
+                    }
+                    else if(index%15==3 || index%15==9){
+                        sec = Integer.parseInt(value);
+                    }
+                    else if(index%15==4 || index%15==10){
+                        dayTime = value;
+                    }
+                    else if(index%15==5 || index%15==11){
+                        room = value;
+                    }
+                    else if(index%15==6 || index%15==12){
+                        major = value;
+                    }
+                    else if(index%15==7 || index%15==13){
+                        maxStudent = Integer.parseInt(value);
+                    }
+                    else if(index%15==14){
+                        teacherName = value;
+
+                        if(lecORLab == 0){
+                            subject.addLecture(new CourseComponent(credit, sec, dayTime, room, major, maxStudent, teacherName));
+                        }
+                        else if(lecORLab == 1){
+                            subject.addLab(new CourseComponent(credit, sec, dayTime, room, major, maxStudent, teacherName));
+                        }
                     }
 
 
-                    // else if(index%15==1){
-                    //     totalCredit = Integer.parseInt(value);
-
-                    //     subject = new Subject(id, name, totalCredit);
-                    //     subjects.add(subject);
-                    // }
-                    // else if(index%15==2){
-                    //     credit = Integer.parseInt(value);
-                    // }
-                    // else if(index%15==3){
-                    //     sec = Integer.parseInt(value);
-                    // }
-                    // else if(index%15==4){
-                    //     dayTime = value;
-                    // }
-                    // else if(index%15==5){
-                    //     room = value;
-                    // }
-                    // else if(index%15==6){
-                    //     major = value;
-                    // }
 
 
                     index++;
