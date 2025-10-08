@@ -12,11 +12,32 @@ public class LoginPanel extends JPanel implements ActionListener {
     public LoginPanel(AppFrame frame) {
         this.appFrame = frame;
 
-        setLayout(new BorderLayout());
+        // setLayout(new GridBagLayout());
+        // GridBagConstraints grid =   new GridBagConstraints();
+        // grid.fill = GridBagConstraints.BOTH;
 
-        goToTablePanel = new JButton("Login");
-        goToTablePanel.addActionListener(e -> {appFrame.showTablePanel();});
-        add(goToTablePanel);
+    
+        // JLabel Bg = new JLabel(new ImageIcon("Icon/Office.jpg"));
+        // grid.weightx=1;
+        // grid.weighty=1;
+        // grid.gridx = 0;
+        // grid.gridy = 0;
+        // grid.gridwidth = 2;
+        // add(Bg,grid);
+        
+        // goToTablePanel = new JButton("Login");
+        // goToTablePanel.addActionListener(e -> {appFrame.showTablePanel();});
+        // grid.gridx = 2;
+        // grid.gridy = 0;
+        // grid.gridwidth = 1;
+        // add(goToTablePanel, grid);
+
+
+        JLayeredPane layerPane = new JLayeredPane();
+        layerPane.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
+
+        JLabel background = new JLabel(new ImageIcon("Icon/Office.jpg"));
+        layerPane.add(background, JLayeredPane.DEFAULT_LAYER);
     }
 
     @Override

@@ -8,10 +8,11 @@ public class AppFrame extends JFrame {
     JPanel cardPanel;
 
     public AppFrame() {
-        setTitle("Switch Panel Example");
+        setTitle("sKedU");
         setSize(1600, 900);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        // setExtendedState(JFrame.MAXIMIZED_BOTH);  //เต็มจอ 
 
         // ตั้งค่า CardLayout
         cardLayout = new CardLayout();
