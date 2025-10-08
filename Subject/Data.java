@@ -1,6 +1,11 @@
 package Subject;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+
 
 public class Data {
     private String csvPath;
@@ -19,24 +24,101 @@ public class Data {
     public void setSubjects(){
         
         //อันนี้คือตัวอย่างการ สร้างวิชาเเละเเอด Lecture เเละ Lab เข้าไปในวิชานั้น 
-        Subject s1 = new Subject("01423345-65", "Data_I", 3);
-        CourseComponent lec1 = new CourseComponent(2, 700, "วันอังคาร 10:30-12:00,วันพฤหัสบดี", "LH2-201 , LH2-201", "E29,E34", 50, "WaranYa haha, bunyaratddddddddddddddd");
-        s1.addLecture(lec1);
-        CourseComponent lab = new CourseComponent(1, 711, "วันพฤหัสบดี 16:00-18:00", "E8404", "E29", 60, "Bunyarat");
-        s1.addLab(lab);
-        CourseComponent CourseComponent = new CourseComponent(1, 712, "วันศุกร์ 16:00-18:00", "E8404", "E29", 60, "Bunyarat");
-        s1.addLab(lab);
-        subjects.add(s1);
-        Subject s2 = new Subject("01130171-64", "การบัญชีการเงิน", 3);
-        CourseComponent lec2 = new CourseComponent(3, 700, "วันอังคาร 10:30-12:00,วันพฤหัสบดี 10:30-12:00", "LH2-201 , LH2-201 ", "Q20,Q34", 100, "Jee, hong");
-        s2.addLecture(lec2);
-        CourseComponent lec3 = new CourseComponent(3, 701, "วันพุธ 10:30-12:00,วันศุกร์ 10:30-12:00", "LH2-203 , LH2-212 ", "Q60,Q44", 100, "Jee, hong");
-        s2.addLecture(lec3);
-        CourseComponent lec4 = new CourseComponent(3, 702, "วันอังคาร 13:00-15:00,วันศุกร์ 13:00-15:00", "LH2-205 , LH2-212 ", "Q70,Q54", 100, "Jee, hong");
-        s2.addLecture(lec4);
-        CourseComponent lab2 = new CourseComponent(1, 706, "วันศุกร์ 9:00-12:00 ","LH2-205 , LH2-212 ", "Q70,Q54", 100, "Jee, hong");
-        s2.addLab(lab2);
-        subjects.add(s2);
+
+        // Subject s1 = new Subject("01423345-65", "Data_I", 3);
+        // CourseComponent lec1 = new CourseComponent(2, 700, "วันอังคาร 10:30-12:00,วันพฤหัสบดี", "LH2-201 , LH2-201", "E29,E34", 50, "WaranYa haha, bunyaratddddddddddddddd");
+        // s1.addLecture(lec1);
+        // CourseComponent lab = new CourseComponent(1, 711, "วันพฤหัสบดี 16:00-18:00", "E8404", "E29", 60, "Bunyarat");
+        // s1.addLab(lab);
+        // CourseComponent CourseComponent = new CourseComponent(1, 712, "วันศุกร์ 16:00-18:00", "E8404", "E29", 60, "Bunyarat");
+        // s1.addLab(lab);
+        // subjects.add(s1);
+
+        Subject subject = null;
+
+        String id = null;
+        String name = null;
+        int totalCredit;
+
+        int credit = 0;
+        int sec = 0;
+        String dayTime = null;
+        String room = null;
+        String major = null;
+        int maxStudent = 0;
+        String teacherName = null;
+
+
+        String row;
+        int index=-1;
+        String pattern = "^(\\d{8}-\\d{2})(.*)$";
+        int lecORLab;
+
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(csvPath),"UTF-8"))){
+
+            while((row = br.readLine()) != null){
+                ArrayList<String> values = splitCSVLine(row);
+                if (values.size() < 15) continue;
+
+            
+                if (values.get(0).matches("\\d{8}-\\d{2}.*")) {
+                    id = values.get(0).replaceAll(pattern, "$1");
+                    name = values.get(0).replaceAll(pattern, "$2").trim();
+                    subject = new Subject(id, name);
+                    subjects.add(subject);
+                }
+            
+                if (!values.get(2).equals("") && values.get(2).matches("[0-9]")) {
+                    totalCredit = Integer.parseInt(values.get(1));
+                    credit = Integer.parseInt(values.get(2));
+                    sec = Integer.parseInt(values.get(3));
+                    dayTime = values.get(4);
+                    room = values.get(5);
+                    major = values.get(6);
+                    maxStudent = Integer.parseInt(values.get(7));
+                    teacherName = values.get(14);
+
+                    subject.setTotalCredit(totalCredit);
+                    subject.addLecture(new CourseComponent(credit, sec, dayTime, room, major, maxStudent, teacherName));
+                }
+                else if (!values.get(8).equals("") && values.get(8).matches("[0-9]")) {
+                    credit = Integer.parseInt(values.get(8));
+                    sec = Integer.parseInt(values.get(9));
+                    dayTime = values.get(10);
+                    room = values.get(11);
+                    major = values.get(12);
+                    maxStudent = Integer.parseInt(values.get(13));
+                    teacherName = values.get(14);
+
+                    subject.addLab(new CourseComponent(credit, sec, dayTime, room, major, maxStudent, teacherName));
+                }
+            }
+
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+    //chat GPT
+    public static ArrayList<String> splitCSVLine(String line) {
+        ArrayList<String> result = new ArrayList<>();
+        StringBuilder current = new StringBuilder();
+        boolean inQuotes = false;
+
+        for (int i = 0; i < line.length(); i++) {
+            char ch = line.charAt(i);
+
+            if (ch == '"') {
+                inQuotes = !inQuotes; // toggle quote state
+            } else if (ch == ',' && !inQuotes) {
+                result.add(current.toString().trim());
+                current.setLength(0); // reset buffer
+            } else {
+                current.append(ch);
+            }
+        }
+
+        result.add(current.toString().trim()); // add last item
+        return result;
     }
 
 
@@ -100,8 +182,14 @@ public class Data {
 
     }
 
-    public ArrayList<Subject> getSubjects(String id) {
-        return subjects;
+    public void displayAll(){
+        for(Subject sub : subjects){
+            System.out.printf("\n%s %s\n",sub.getId(), sub.getName());
+
+            for(CourseComponent lec : sub.getAllLecture()){
+                System.out.printf("    %d %d %d %s %s %s %d %s\n", sub.getTotalCredit(), lec.getCredit(), lec.getSection(), lec.getDayTimes(), lec.getRooms(), lec.getMajors(), lec.getMaxStudent(), lec.getTeacherNames());
+            }
+        }
     }
 
 
