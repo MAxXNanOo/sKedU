@@ -36,22 +36,27 @@ public class AppFrame extends JFrame {
         setVisible(true);
 
         // แสดงหน้า login ก่อน
-        showLogin();
+        // showLogin();
+        showCustomPanel();
     }
 
     public void showLogin() {
         cardLayout.show(cardPanel, "Login Panel");
+        System.out.println("function : showLogin()");
     }
     public void showTablePanel() {
         Point loc = getLocation();
         cardLayout.show(cardPanel, "Table Panel");
+        System.out.println("function : showTablePanel()");
         setLocation(loc); // คงตำแหน่งเดิม
     }
     public void showSearchPanel(){
         cardLayout.show(cardPanel, "Search Panel");
+        System.out.println("function : showSearchPanel()");
     }
     public void showCustomPanel(){
         cardLayout.show(cardPanel, "Custom Panel");
+        System.out.println("function : showCustomPanel()");
     }
     
 }

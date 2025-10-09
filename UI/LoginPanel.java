@@ -20,7 +20,7 @@ public class LoginPanel extends JPanel implements ActionListener {
 
         JLayeredPane layerPane = new JLayeredPane();
 
-        JLabel background = new JLabel(new ImageIcon((new ImageIcon("Icon/Office.jpg")).getImage().getScaledInstance(width, width, Image.SCALE_SMOOTH)));
+        JLabel background = new JLabel(new ImageIcon((new ImageIcon("Icon/Office.jpg")).getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH)));
         background.setBounds(0, 0, width, height);
         layerPane.add(background, JLayeredPane.DEFAULT_LAYER);
 
@@ -31,8 +31,23 @@ public class LoginPanel extends JPanel implements ActionListener {
         layerPane.add(place, JLayeredPane.PALETTE_LAYER);
 
         place.setLayout(new GridBagLayout());
+        GridBagConstraints grid = new GridBagConstraints();
+        grid.weightx=1;
+        grid.weighty=0;
+
+        // grid.anchor = GridBagConstraints.CENTER;
+
+        JLabel logo = new JLabel(new ImageIcon((new ImageIcon("Icon/sKedU.png")).getImage().getScaledInstance(303, 123, Image.SCALE_SMOOTH)));
+        // logo.setBounds(0, 0, 303, 123);
+        grid.gridx = 0;
+        grid.gridy = 0;
+        grid.insets = new Insets(-(int)(height*0.1), 0, 0, 0);
+        place.add(logo, grid);
 
         JButton loginButton = new JButton("Login");
+        grid.gridx = 0;
+        grid.gridy = 1;
+        grid.insets = new Insets(50, 0, 0, 0);
         loginButton.setBorder(null);
         loginButton.setBorderPainted(false);
         loginButton.setFocusPainted(false);
@@ -43,7 +58,7 @@ public class LoginPanel extends JPanel implements ActionListener {
         loginButton.setForeground(Color.white);
         loginButton.setPreferredSize(new Dimension((int)(width * 0.1), (int)(height * 0.05)));
         loginButton.addActionListener(e -> appFrame.showTablePanel());
-        place.add(loginButton);
+        place.add(loginButton, grid);
 
         add(layerPane, BorderLayout.CENTER);
     }
