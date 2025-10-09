@@ -10,13 +10,13 @@ public class TablePanel extends JPanel implements ActionListener{
     private JButton goToSearchPanel;
     private JButton goToCustomPanel;
 
-    public TablePanel(AppFrame frame){
+    public TablePanel(AppFrame frame, int width, int height){
         this.appFrame = frame;
 
         ImageIcon orgImg = new ImageIcon("Icon/Pofile.png");
         Image sclImg = orgImg.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
         goToLoginPanel = new JButton(new ImageIcon(sclImg));
-        goToLoginPanel.addActionListener(e -> {appFrame.showLogin();});
+        goToLoginPanel.addActionListener(e -> appFrame.showLogin());
 
         add(goToLoginPanel);
     }

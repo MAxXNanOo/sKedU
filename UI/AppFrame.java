@@ -2,27 +2,29 @@ package UI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
 public class AppFrame extends JFrame {
     CardLayout cardLayout;
     JPanel cardPanel;
 
-    public AppFrame() {
+    public AppFrame(int width, int height) {
         setTitle("sKedU");
-        setSize(1600, 900);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(width, height); //16:9 เท่านั้น
+        setResizable(false);
         setLocationRelativeTo(null);
-        // setExtendedState(JFrame.MAXIMIZED_BOTH);  //เต็มจอ 
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // ตั้งค่า CardLayout
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
 
         // สร้าง panel ทั้งสอง
-        LoginPanel loginPanel = new LoginPanel(this);
-        SearchPanel searchPanel = new SearchPanel(this);
-        TablePanel tablePanel = new TablePanel(this);
-        CustomPanel customPanel = new CustomPanel(this);
+        LoginPanel loginPanel = new LoginPanel(this, width, height);
+        SearchPanel searchPanel = new SearchPanel(this, width, height);
+        TablePanel tablePanel = new TablePanel(this, width, height);
+        CustomPanel customPanel = new CustomPanel(this, width, height);
 
         // เพิ่ม panel ลงใน cardPanel
         cardPanel.add(loginPanel, "Login Panel");

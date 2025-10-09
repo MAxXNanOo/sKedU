@@ -11,7 +11,7 @@ public class SearchPanel extends JPanel implements ActionListener{
     private JButton goToTablePanel;
     private JButton goToCustomPanel;
 
-    public SearchPanel(AppFrame frame){
+    public SearchPanel(AppFrame frame, int width, int height){
         this.appFrame = frame;
     }
 

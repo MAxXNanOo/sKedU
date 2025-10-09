@@ -11,7 +11,7 @@ public class CustomPanel extends JPanel implements ActionListener{
     private JButton goToTablePanel;
     private JButton goToSearchPanel;
 
-    public CustomPanel(AppFrame frame){
+    public CustomPanel(AppFrame frame, int width, int height){
         this.appFrame = frame;
     }
 

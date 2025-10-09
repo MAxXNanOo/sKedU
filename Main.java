@@ -14,7 +14,7 @@ public class Main {
         
         data.displayAll();
 
-        SwingUtilities.invokeLater(() -> new AppFrame());
+        SwingUtilities.invokeLater(() -> new AppFrame(1280, 720));
     }
 }
 

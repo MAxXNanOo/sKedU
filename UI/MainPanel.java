@@ -8,7 +8,7 @@ public class MainPanel extends JPanel implements ActionListener {
     private AppFrame appFrame;
     private JButton logoutButton;
 
-    public MainPanel(AppFrame frame) {
+    public MainPanel(AppFrame frame, int width, int height) {
         this.appFrame = frame;
 
         setLayout(new BorderLayout());
