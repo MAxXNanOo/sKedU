@@ -10,7 +10,7 @@ public class TablePanel extends JPanel implements ActionListener{
     private JButton goToSearchPanel;
     private JButton goToCustomPanel;
 
-    public TablePanel(AppFrame frame, int width, int height){
+    public TablePanel(AppFrame frame, int width, int height, Color backgroundColor, Color sidebarColor, Color chooseIconColor){
         this.appFrame = frame;
 
         ImageIcon orgImg = new ImageIcon("Icon/Pofile.png");
