@@ -42,8 +42,8 @@ public class AppFrame extends JFrame {
         setVisible(true);
 
         // แสดงหน้า login ก่อน
-        // showLogin();
-        showCustomPanel();
+        showLogin();
+        // showCustomPanel();
     }
 
     public void showLogin() {

@@ -12,7 +12,7 @@ public class Main {
         Data data = new Data("KUdata/KUKPSForTest.csv");
         data.setSubjects();
         
-        // data.displayAll();
+        data.displayAll();
 
         SwingUtilities.invokeLater(() -> new AppFrame(1280, 720));
     }

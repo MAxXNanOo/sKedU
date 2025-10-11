@@ -13,12 +13,27 @@ public class TablePanel extends JPanel implements ActionListener{
     public TablePanel(AppFrame frame, int width, int height, Color backgroundColor, Color sidebarColor, Color chooseIconColor){
         this.appFrame = frame;
 
-        ImageIcon orgImg = new ImageIcon("Icon/Pofile.png");
-        Image sclImg = orgImg.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
-        goToLoginPanel = new JButton(new ImageIcon(sclImg));
-        goToLoginPanel.addActionListener(e -> appFrame.showLogin());
+        this.appFrame = frame;
+        setLayout(null);
 
-        add(goToLoginPanel);
+
+        JLayeredPane layer = new JLayeredPane();
+        layer.setBounds(0, 0, width, height);
+
+        JPanel background = new JPanel();
+        background.setBounds(0, 0, width, height);
+        background.setOpaque(true);
+        background.setBackground(Color.black);
+        layer.add(background, JLayeredPane.DEFAULT_LAYER);
+
+
+        SidebarPanel sidebar = new SidebarPanel(frame, width, height, backgroundColor, sidebarColor, chooseIconColor, 0);
+        sidebar.setOpaque(false);
+        sidebar.setBounds(0, 0, 200, height);
+        layer.add(sidebar, JLayeredPane.PALETTE_LAYER);
+
+
+        add(layer, BorderLayout.CENTER);
     }
 
     @Override

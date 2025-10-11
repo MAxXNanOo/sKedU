@@ -13,6 +13,27 @@ public class SearchPanel extends JPanel implements ActionListener{
 
     public SearchPanel(AppFrame frame, int width, int height, Color backgroundColor, Color sidebarColor, Color chooseIconColor){
         this.appFrame = frame;
+        setLayout(null);
+
+
+        JLayeredPane layer = new JLayeredPane();
+        layer.setBounds(0, 0, width, height);
+
+        JPanel background = new JPanel();
+        background.setBounds(0, 0, width, height);
+        background.setOpaque(true);
+        background.setBackground(Color.gray);
+        layer.add(background, JLayeredPane.DEFAULT_LAYER);
+
+
+
+        SidebarPanel sidebar = new SidebarPanel(frame, width, height, backgroundColor, sidebarColor, chooseIconColor, 1);
+        sidebar.setOpaque(false);
+        sidebar.setBounds(0, 0, 200, height);
+        layer.add(sidebar, JLayeredPane.PALETTE_LAYER);
+
+
+        add(layer, BorderLayout.CENTER);
     }
 
     @Override
