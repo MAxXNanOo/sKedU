@@ -15,6 +15,8 @@ public class SidebarPanel extends JPanel {
     private Timer sidebarTimer = null;
     private boolean isExpanded = false;
 
+
+
     public SidebarPanel(AppFrame frame, int width, int height, Color backgroundColor, Color sidebarColor, Color chooseIconColor, int panelIndex) {
         this.appFrame = frame;
 
@@ -35,62 +37,36 @@ public class SidebarPanel extends JPanel {
                 grid.gridy = 0;
                 profilePanel.setOpaque(true);
                 profilePanel.setBackground(sidebarColor);
-                profilePanel.addMouseListener(new MouseAdapter() {
-                    public void mouseClicked(MouseEvent e) {
-                        appFrame.showLogin();
-                    }
-                    public void mouseEntered(MouseEvent e) {animateSidebar(sidebar, true,width);}
-                    public void mouseExited(MouseEvent e){Point mousePos = MouseInfo.getPointerInfo().getLocation();SwingUtilities.convertPointFromScreen(mousePos, sidebar); if (!sidebar.contains(mousePos)) animateSidebar(sidebar, false, width);}
-                });
                 sidebar.add(profilePanel, grid);
-                    JLabel profileIcon = new JLabel(new ImageIcon((new ImageIcon("Icon/Pofile.png")).getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH)));
-                    profilePanel.add(profileIcon);
+                    addText(profilePanel, "Icon/Pofile.png", "samachick", 0);
 
 
                 JPanel tableIconPanel = new JPanel();
                 grid.gridy = 1;
                 tableIconPanel.setOpaque(true);
                 tableIconPanel.setBackground(sidebarColor);
-                tableIconPanel.addMouseListener(new MouseAdapter() {
-                    public void mouseClicked(MouseEvent e) {
-                        appFrame.showTablePanel();
-                    }
-                    public void mouseEntered(MouseEvent e) {animateSidebar(sidebar, true,width);}
-                    public void mouseExited(MouseEvent e){Point mousePos = MouseInfo.getPointerInfo().getLocation();SwingUtilities.convertPointFromScreen(mousePos, sidebar); if (!sidebar.contains(mousePos)) animateSidebar(sidebar, false, width);}
-                });
                 sidebar.add(tableIconPanel, grid);
+                    addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 0);
                     
 
                 JPanel searchIconPanel = new JPanel();
                 grid.gridy = 2;
                 searchIconPanel.setOpaque(true);
                 searchIconPanel.setBackground(sidebarColor);
-                searchIconPanel.addMouseListener(new MouseAdapter() {
-                    public void mouseClicked(MouseEvent e) {
-                        appFrame.showSearchPanel();
-                    }
-                    public void mouseEntered(MouseEvent e) {animateSidebar(sidebar, true,width);}
-                    public void mouseExited(MouseEvent e){Point mousePos = MouseInfo.getPointerInfo().getLocation();SwingUtilities.convertPointFromScreen(mousePos, sidebar); if (!sidebar.contains(mousePos)) animateSidebar(sidebar, false, width);}
-                });
                 sidebar.add(searchIconPanel, grid);
+                    addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 0);
 
                 JPanel customIconPanel = new JPanel();
                 grid.gridy = 3;
                 // customIconPanel.setOpaque(true);
                 customIconPanel.setBackground(sidebarColor);
-                customIconPanel.addMouseListener(new MouseAdapter() {
-                    public void mouseClicked(MouseEvent e) {
-                        appFrame.showCustomPanel();
-                    }
-                    public void mouseEntered(MouseEvent e) {animateSidebar(sidebar, true,width);}
-                    public void mouseExited(MouseEvent e){Point mousePos = MouseInfo.getPointerInfo().getLocation();SwingUtilities.convertPointFromScreen(mousePos, sidebar); if (!sidebar.contains(mousePos)) animateSidebar(sidebar, false, width);}
-                });
                 sidebar.add(customIconPanel, grid);
+                    addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 0);
 
 
                 JPanel [] free = new JPanel[10];
                 int g = 4;
-                for(int i=g ; i<10+g ; i++){
+                for(int i=g ; i<8+g ; i++){
                     free[i-g] = new JPanel();
                     grid.gridy = i;
                     free[i-g].setOpaque(true);
@@ -111,22 +87,125 @@ public class SidebarPanel extends JPanel {
             public void mouseEntered(MouseEvent e) {
                 animateSidebar(sidebar, true,width);
 
-
-
+                addText(profilePanel, "Icon/Pofile.png", "samachick", 1);
                 addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 1);
+                addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 1);
+                addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 1);
             }
             public void mouseExited(MouseEvent e){
                 Point mousePos = MouseInfo.getPointerInfo().getLocation();
                 SwingUtilities.convertPointFromScreen(mousePos, sidebar);
                 if (!sidebar.contains(mousePos)) {
                     animateSidebar(sidebar, false, width);
+
+                    addText(profilePanel, "Icon/Pofile.png", "samachick", 0);
+                    addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 0);
+                    addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 0);
+                    addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 0);
                 } 
-
-
-
-                addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 0);
             }
         });
+            profilePanel.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    appFrame.showLogin();
+                }
+                public void mouseEntered(MouseEvent e) {
+                    animateSidebar(sidebar, true,width);
+                    
+                    addText(profilePanel, "Icon/Pofile.png", "samachick", 1);
+                    addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 1);
+                    addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 1);
+                    addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 1);
+                }
+                public void mouseExited(MouseEvent e){
+                    Point mousePos = MouseInfo.getPointerInfo().getLocation();
+                    SwingUtilities.convertPointFromScreen(mousePos, sidebar);
+                    if (!sidebar.contains(mousePos)) {
+                        animateSidebar(sidebar, false, width);
+                        
+                        addText(profilePanel, "Icon/Pofile.png", "samachick", 0);
+                        addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 0);
+                        addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 0);
+                        addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 0);
+                    } 
+                }
+            });
+            tableIconPanel.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    appFrame.showTablePanel();
+                }
+                public void mouseEntered(MouseEvent e) {
+                    animateSidebar(sidebar, true,width);
+                    
+                    addText(profilePanel, "Icon/Pofile.png", "samachick", 1);
+                    addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 1);
+                    addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 1);
+                    addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 1);
+                }
+                public void mouseExited(MouseEvent e){
+                    Point mousePos = MouseInfo.getPointerInfo().getLocation();
+                    SwingUtilities.convertPointFromScreen(mousePos, sidebar);
+                    if (!sidebar.contains(mousePos)) {
+                        animateSidebar(sidebar, false, width);
+                        
+                        addText(profilePanel, "Icon/Pofile.png", "samachick", 0);
+                        addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 0);
+                        addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 0);
+                        addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 0);
+                    } 
+                }
+            });
+            searchIconPanel.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    appFrame.showSearchPanel();
+                }
+                public void mouseEntered(MouseEvent e) {
+                    animateSidebar(sidebar, true,width);
+                    
+                    addText(profilePanel, "Icon/Pofile.png", "samachick", 1);
+                    addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 1);
+                    addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 1);
+                    addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 1);
+                }
+                public void mouseExited(MouseEvent e){
+                    Point mousePos = MouseInfo.getPointerInfo().getLocation();
+                    SwingUtilities.convertPointFromScreen(mousePos, sidebar);
+                    if (!sidebar.contains(mousePos)) {
+                        animateSidebar(sidebar, false, width);
+                        
+                        addText(profilePanel, "Icon/Pofile.png", "samachick", 0);
+                        addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 0);
+                        addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 0);
+                        addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 0);
+                    } 
+                }
+            });
+            customIconPanel.addMouseListener(new MouseAdapter() {
+                public void mouseClicked(MouseEvent e) {
+                    appFrame.showCustomPanel();
+                }
+                public void mouseEntered(MouseEvent e) {
+                    animateSidebar(sidebar, true,width);
+                    
+                    addText(profilePanel, "Icon/Pofile.png", "samachick", 1);
+                    addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 1);
+                    addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 1);
+                    addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 1);
+                }
+                public void mouseExited(MouseEvent e){
+                    Point mousePos = MouseInfo.getPointerInfo().getLocation();
+                    SwingUtilities.convertPointFromScreen(mousePos, sidebar);
+                    if (!sidebar.contains(mousePos)) {
+                        animateSidebar(sidebar, false, width);
+                        
+                        addText(profilePanel, "Icon/Pofile.png", "samachick", 0);
+                        addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 0);
+                        addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 0);
+                        addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 0);
+                    } 
+                }
+            });
+
 
 
         add(sidebar);
@@ -176,8 +255,20 @@ public class SidebarPanel extends JPanel {
 
 
     public void addText(JPanel panel, String path, String text, int choose){
+        panel.removeAll();
+
         if(choose == 0){
-            panel.removeAll();
+            panel.setLayout(new BorderLayout());
+            JLabel tableIcon = new JLabel(new ImageIcon(
+                (new ImageIcon(path))
+                .getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH)
+            ));
+            JLabel tableText = new JLabel(" ");
+            tableText.setForeground(Color.WHITE);
+            tableText.setFont(new Font("Tahoma", Font.BOLD, 14));
+            panel.add(tableIcon, BorderLayout.WEST);
+            panel.add(tableText, BorderLayout.EAST);
+            // panel.setBounds(0,0,(int)(1280*0.05), 720);
         }
         else if(choose == 1){
             panel.setLayout(new BorderLayout());
@@ -188,13 +279,8 @@ public class SidebarPanel extends JPanel {
             JLabel tableText = new JLabel(text);
             tableText.setForeground(Color.WHITE);
             tableText.setFont(new Font("Tahoma", Font.BOLD, 14));
-
             panel.add(tableIcon, BorderLayout.WEST);
             panel.add(tableText, BorderLayout.EAST);
         }
     }
-    
-
-
-
 }
