@@ -10,7 +10,7 @@ import UI.*;
 public class Main {
     public static void main(String[] args) {
         Data data = new Data("KUdata/KUKPSForTest.csv");
-        data.setSubjects();
+        data.readCSV();
         
 
         // data.displayDataById("01130171-64");
