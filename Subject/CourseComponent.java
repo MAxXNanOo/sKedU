@@ -41,17 +41,46 @@ public class CourseComponent {
 
 
     //safe 5/10
-    public void set(){
+    public void set() 
+    {
+        for (String dt : dayTimes) 
+        {
+            dt = dt.trim();//ใว้ตัดช่องว่างส่วนเกินออก
 
+            // แยกส่วนของวัน กับ ส่วนของเวลา
+            // วันจันทร์ 10:30-12:00 > วันจันทร์ , 10:30-12:00
+            String[] parts = dt.split("\\s+", 2);
+            if (parts.length < 2) continue; //กัน error ถ้าข้อมูลไม่ครบ
+
+            String day = parts[0].trim();
+            String time = parts[1].trim();
+
+            // แยกเวลาเริ่มและเวลาเลิก
+            String[] timeParts = time.split("-");
+
+            if (timeParts.length < 2) continue;
+            
+            double start = CT(timeParts[0].trim()); //10:30 → 10.30
+            double end = CT(timeParts[1].trim());
+
+            days.add(day);
+            starts.add(start);
+            ends.add(end);
+        }
     }
 
+    private double CT(String time) 
+    {
+        String[] parts = time.split(":");
 
+        int hour = Integer.parseInt(parts[0]);
+        int minute = Integer.parseInt(parts[1]);
 
-
-
-
+        return hour + (minute / 60.0);
+    }
 
     //Get
+
 
     public int getCredit() {
         return credit;
