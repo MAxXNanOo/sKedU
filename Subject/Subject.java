@@ -11,9 +11,10 @@ public class Subject {
 
 
 
-    public Subject(String id, String name) {
+    public Subject(String id, String name, int totalCredit) {
         this.id = id;
         this.name = name;
+        this.totalCredit = totalCredit;
         this.lectures = new ArrayList<>();
         this.labs = new ArrayList<>();
     }

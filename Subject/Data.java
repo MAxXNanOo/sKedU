@@ -75,10 +75,11 @@ public class Data {
                     name = "";
                 }
 
+                int totalCredit = safeParseInt(data[1]);
 
                 Subject subject = findSubjectById(id);
                 if (subject == null) {
-                    subject = new Subject(id, name);
+                    subject = new Subject(id, name, totalCredit);
                     subjects.add(subject);
                 }
 
