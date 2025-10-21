@@ -1,4 +1,4 @@
-package Subject;
+package table;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;

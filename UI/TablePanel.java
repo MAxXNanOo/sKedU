@@ -24,6 +24,12 @@ public class TablePanel extends JPanel implements ActionListener{
         background.setBounds(0, 0, width, height);
         background.setOpaque(true);
         background.setBackground(Color.black);
+        background.setLayout(null);
+            Detail detail = new Detail("014320112-65", "Data_I");
+            detail.setOpaque(false);
+            detail.setBounds(0,0,320,160);
+            background.add(detail);
+
         layer.add(background, JLayeredPane.DEFAULT_LAYER);
 
 
@@ -31,6 +37,9 @@ public class TablePanel extends JPanel implements ActionListener{
         sidebar.setOpaque(false);
         sidebar.setBounds(0, 0, 200, height);
         layer.add(sidebar, JLayeredPane.PALETTE_LAYER);
+
+
+
 
 
         add(layer, BorderLayout.CENTER);

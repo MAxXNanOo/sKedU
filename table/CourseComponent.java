@@ -1,4 +1,4 @@
-package Subject;
+package table;
 
 import java.util.ArrayList;
 import java.util.Collections;
