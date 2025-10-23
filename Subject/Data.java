@@ -40,7 +40,7 @@ public class Data {
     }
 
     // Read CSV
-    public void readCSV() {
+    public void setSubjects() {
         try (BufferedReader br = new BufferedReader(
                 new InputStreamReader(new FileInputStream(csvPath), "UTF-8"))) {
 
