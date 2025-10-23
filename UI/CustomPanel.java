@@ -10,7 +10,7 @@ public class CustomPanel extends JPanel implements ActionListener{
 
 
 
-    public CustomPanel(AppFrame frame, int width, int height, Color backgroundColor, Color sidebarColor, Color chooseIconColor){
+    public CustomPanel(AppFrame frame, int width, int height){
         this.appFrame = frame;
         setLayout(null);
 
@@ -24,7 +24,7 @@ public class CustomPanel extends JPanel implements ActionListener{
         background.setBackground(Color.white);
         layer.add(background, JLayeredPane.DEFAULT_LAYER);
 
-        SidebarPanel sidebar = new SidebarPanel(frame, width, height, backgroundColor, sidebarColor, chooseIconColor, 2);
+        SidebarPanel sidebar = new SidebarPanel(frame, width, height, 2);
         sidebar.setOpaque(false);
         sidebar.setBounds(0, 0, 200, height);
         layer.add(sidebar, JLayeredPane.PALETTE_LAYER);
@@ -40,6 +40,4 @@ public class CustomPanel extends JPanel implements ActionListener{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
     }
-
-
 }

@@ -11,7 +11,7 @@ public class SearchPanel extends JPanel implements ActionListener{
     private JButton goToTablePanel;
     private JButton goToCustomPanel;
 
-    public SearchPanel(AppFrame frame, int width, int height, Color backgroundColor, Color sidebarColor, Color chooseIconColor){
+    public SearchPanel(AppFrame frame, int width, int height){
         this.appFrame = frame;
         setLayout(null);
 
@@ -27,7 +27,7 @@ public class SearchPanel extends JPanel implements ActionListener{
 
 
 
-        SidebarPanel sidebar = new SidebarPanel(frame, width, height, backgroundColor, sidebarColor, chooseIconColor, 1);
+        SidebarPanel sidebar = new SidebarPanel(frame, width, height, 1);
         sidebar.setOpaque(false);
         sidebar.setBounds(0, 0, 200, height);
         layer.add(sidebar, JLayeredPane.PALETTE_LAYER);

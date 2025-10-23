@@ -9,10 +9,10 @@ import UI.*;
 
 public class Main {
     public static void main(String[] args) {
-        Data data = new Data("KUdata/KUKPSForTest.csv");
-        data.setSubjects();
+        // Data data = new Data("KUdata/KUKPSForTest.csv");
+        // data.setSubjects();
         
-        data.displayAll();
+        // data.displayAll();
 
         SwingUtilities.invokeLater(() -> new AppFrame(1280, 720));
     }
