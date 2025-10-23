@@ -15,9 +15,13 @@ public class SidebarPanel extends JPanel {
     private Timer sidebarTimer = null;
     private boolean isExpanded = false;
 
+    Color backgroundColor = new Color(255, 255, 255);
+    Color sidebarColor = new Color(47, 51, 55);
+    Color chooseIconColor = new Color(3, 169, 107);
 
 
-    public SidebarPanel(AppFrame frame, int width, int height, Color backgroundColor, Color sidebarColor, Color chooseIconColor, int panelIndex) {
+
+    public SidebarPanel(AppFrame frame, int width, int height, int panelIndex) {
         this.appFrame = frame;
 
         setLayout(null);
