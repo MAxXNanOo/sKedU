@@ -25,7 +25,7 @@ public class TablePanel extends JPanel implements ActionListener{
         JPanel background = new JPanel();
         background.setBounds(0, 0, width, height);
         background.setOpaque(true);
-        background.setBackground(Color.black);
+        background.setBackground(Color.WHITE);
         background.setLayout(null);
             Table table = new Table(studentData);
             table.setOpaque(false);
