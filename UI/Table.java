@@ -15,7 +15,7 @@ public class Table extends JPanel{
 
         setLayout(null);
         JPanel background = new JPanel();
-        background.setBounds(0, 0, 600, 220);
+        background.setBounds(0, 0, 1080, 400);
         background.setOpaque(true);
         background.setBackground(Color.gray);
 

@@ -23,7 +23,7 @@ public class SidebarPanel extends JPanel {
 
 
 
-    public SidebarPanel(AppFrame frame, int width, int height, int panelIndex, StudentData studentData, Data data) {
+    public SidebarPanel(AppFrame frame, int width, int height, int panelIndex, StudentData studentData) {
         this.appFrame = frame;
 
         setLayout(null);

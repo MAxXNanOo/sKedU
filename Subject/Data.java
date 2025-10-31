@@ -188,8 +188,6 @@ public class Data {
         }
     }
 
-    public ArrayList<subject> 
-
 
 }
 
