@@ -11,6 +11,8 @@ public class StudentData {
     private ArrayList<Student> students = new ArrayList<>();
     private String csvFile;
 
+    private Student student;
+
 
 
 
@@ -78,11 +80,17 @@ public class StudentData {
 
 
     public boolean validateLogin(String username, String password) {
-        for (Student student : students) {
-            if (student.getUsername().equals(username) && student.getPassword().equals(password)) {
+        for (Student st : students) {
+            if (st.getUsername().equals(username) && st.getPassword().equals(password)) {
+                this.student = st;
                 return true;
             }
         }
         return false;
+    }
+
+
+    public Student getStudentLogin(){
+        return this.student;
     }
 }

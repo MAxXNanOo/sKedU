@@ -4,13 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import Subject.*;
 
 public class CustomPanel extends JPanel implements ActionListener{
     private AppFrame appFrame;
 
 
 
-    public CustomPanel(AppFrame frame, int width, int height){
+    public CustomPanel(AppFrame frame, int width, int height, StudentData studentData){
         this.appFrame = frame;
         setLayout(null);
 
@@ -24,11 +25,10 @@ public class CustomPanel extends JPanel implements ActionListener{
         background.setBackground(Color.white);
         layer.add(background, JLayeredPane.DEFAULT_LAYER);
 
-        SidebarPanel sidebar = new SidebarPanel(frame, width, height, 2);
+        SidebarPanel sidebar = new SidebarPanel(frame, width, height, 2, studentData);
         sidebar.setOpaque(false);
         sidebar.setBounds(0, 0, 200, height);
         layer.add(sidebar, JLayeredPane.PALETTE_LAYER);
-
 
         add(layer, BorderLayout.CENTER);
     }

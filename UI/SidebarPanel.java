@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import Subject.*;
+
 public class SidebarPanel extends JPanel {
     private AppFrame appFrame;
     private JButton goToLoginPanel;
@@ -21,7 +23,7 @@ public class SidebarPanel extends JPanel {
 
 
 
-    public SidebarPanel(AppFrame frame, int width, int height, int panelIndex) {
+    public SidebarPanel(AppFrame frame, int width, int height, int panelIndex, StudentData studentData) {
         this.appFrame = frame;
 
         setLayout(null);
@@ -42,7 +44,7 @@ public class SidebarPanel extends JPanel {
                 profilePanel.setOpaque(true);
                 profilePanel.setBackground(sidebarColor);
                 sidebar.add(profilePanel, grid);
-                    addText(profilePanel, "Icon/Pofile.png", "samachick", 0);
+                    addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 0);
 
 
                 JPanel tableIconPanel = new JPanel();
@@ -91,7 +93,7 @@ public class SidebarPanel extends JPanel {
             public void mouseEntered(MouseEvent e) {
                 animateSidebar(sidebar, true,width);
 
-                addText(profilePanel, "Icon/Pofile.png", "samachick", 1);
+                addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 1);
                 addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 1);
                 addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 1);
                 addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 1);
@@ -102,7 +104,7 @@ public class SidebarPanel extends JPanel {
                 if (!sidebar.contains(mousePos)) {
                     animateSidebar(sidebar, false, width);
 
-                    addText(profilePanel, "Icon/Pofile.png", "samachick", 0);
+                    addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 0);
                     addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 0);
                     addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 0);
                     addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 0);
@@ -116,7 +118,7 @@ public class SidebarPanel extends JPanel {
                 public void mouseEntered(MouseEvent e) {
                     animateSidebar(sidebar, true,width);
                     
-                    addText(profilePanel, "Icon/Pofile.png", "samachick", 1);
+                    addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 1);
                     addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 1);
                     addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 1);
                     addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 1);
@@ -127,7 +129,7 @@ public class SidebarPanel extends JPanel {
                     if (!sidebar.contains(mousePos)) {
                         animateSidebar(sidebar, false, width);
                         
-                        addText(profilePanel, "Icon/Pofile.png", "samachick", 0);
+                        addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 0);
                         addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 0);
                         addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 0);
                         addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 0);
@@ -141,7 +143,7 @@ public class SidebarPanel extends JPanel {
                 public void mouseEntered(MouseEvent e) {
                     animateSidebar(sidebar, true,width);
                     
-                    addText(profilePanel, "Icon/Pofile.png", "samachick", 1);
+                    addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 1);
                     addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 1);
                     addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 1);
                     addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 1);
@@ -152,7 +154,7 @@ public class SidebarPanel extends JPanel {
                     if (!sidebar.contains(mousePos)) {
                         animateSidebar(sidebar, false, width);
                         
-                        addText(profilePanel, "Icon/Pofile.png", "samachick", 0);
+                        addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 0);
                         addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 0);
                         addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 0);
                         addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 0);
@@ -166,7 +168,7 @@ public class SidebarPanel extends JPanel {
                 public void mouseEntered(MouseEvent e) {
                     animateSidebar(sidebar, true,width);
                     
-                    addText(profilePanel, "Icon/Pofile.png", "samachick", 1);
+                    addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 1);
                     addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 1);
                     addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 1);
                     addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 1);
@@ -177,7 +179,7 @@ public class SidebarPanel extends JPanel {
                     if (!sidebar.contains(mousePos)) {
                         animateSidebar(sidebar, false, width);
                         
-                        addText(profilePanel, "Icon/Pofile.png", "samachick", 0);
+                        addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 0);
                         addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 0);
                         addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 0);
                         addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 0);
@@ -191,7 +193,7 @@ public class SidebarPanel extends JPanel {
                 public void mouseEntered(MouseEvent e) {
                     animateSidebar(sidebar, true,width);
                     
-                    addText(profilePanel, "Icon/Pofile.png", "samachick", 1);
+                    addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 1);
                     addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 1);
                     addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 1);
                     addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 1);
@@ -202,7 +204,7 @@ public class SidebarPanel extends JPanel {
                     if (!sidebar.contains(mousePos)) {
                         animateSidebar(sidebar, false, width);
                         
-                        addText(profilePanel, "Icon/Pofile.png", "samachick", 0);
+                        addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 0);
                         addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 0);
                         addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 0);
                         addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 0);
@@ -267,10 +269,12 @@ public class SidebarPanel extends JPanel {
                 (new ImageIcon(path))
                 .getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH)
             ));
+
+            // tableIcon.setBounds(50,0,32,32);
             JLabel tableText = new JLabel(" ");
             tableText.setForeground(Color.WHITE);
             tableText.setFont(new Font("Tahoma", Font.BOLD, 14));
-            panel.add(tableIcon, BorderLayout.WEST);
+            panel.add(tableIcon, BorderLayout.CENTER);
             panel.add(tableText, BorderLayout.EAST);
             // panel.setBounds(0,0,(int)(1280*0.05), 720);
         }

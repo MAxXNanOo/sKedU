@@ -13,7 +13,12 @@ public class AppFrame extends JFrame {
     Data data = new Data("KUdata/KUKPSForTest.csv");
     StudentData studentData = new StudentData("KUdata/student.csv");
 
+    int width, height;
+
     public AppFrame(int width, int height) {
+        this.width = width;
+        this.height = height;
+        
         setTitle("sKedU");
         setSize(width, height); //16:9 เท่านั้น
         setResizable(false);
@@ -31,15 +36,9 @@ public class AppFrame extends JFrame {
 
         // สร้าง panel ทั้งสอง
         LoginPanel loginPanel = new LoginPanel(this, width, height, studentData);
-        SearchPanel searchPanel = new SearchPanel(this, width, height);
-        TablePanel tablePanel = new TablePanel(this, width, height);
-        CustomPanel customPanel = new CustomPanel(this, width, height);
 
         // เพิ่ม panel ลงใน cardPanel
         cardPanel.add(loginPanel, "Login Panel");
-        cardPanel.add(searchPanel, "Search Panel");
-        cardPanel.add(tablePanel, "Table Panel");
-        cardPanel.add(customPanel, "Custom Panel");
 
         add(cardPanel);
         setVisible(true);
@@ -54,19 +53,53 @@ public class AppFrame extends JFrame {
         System.out.println("function : showLogin()");
     }
     public void showTablePanel() {
-        // Point loc = getLocation();
+        SearchPanel searchPanel = new SearchPanel(this, width, height, studentData);
+        TablePanel tablePanel = new TablePanel(this, width, height, studentData);
+        CustomPanel customPanel = new CustomPanel(this, width, height, studentData);
+
+
+        cardPanel.add(searchPanel, "Search Panel");
+        cardPanel.add(tablePanel, "Table Panel");
+        cardPanel.add(customPanel, "Custom Panel");
+        add(cardPanel);
+        setVisible(true);
+
+
+
         cardLayout.show(cardPanel, "Table Panel");
         System.out.println("function : showTablePanel()");
-        // setLocation(loc); // คงตำแหน่งเดิม
     }
     public void showSearchPanel(){
+        SearchPanel searchPanel = new SearchPanel(this, width, height, studentData);
+        TablePanel tablePanel = new TablePanel(this, width, height, studentData);
+        CustomPanel customPanel = new CustomPanel(this, width, height, studentData);
+
+
+        cardPanel.add(searchPanel, "Search Panel");
+        cardPanel.add(tablePanel, "Table Panel");
+        cardPanel.add(customPanel, "Custom Panel");
+        add(cardPanel);
+        setVisible(true);
+
+
         cardLayout.show(cardPanel, "Search Panel");
         System.out.println("function : showSearchPanel()");
     }
     public void showCustomPanel(){
+        SearchPanel searchPanel = new SearchPanel(this, width, height, studentData);
+        TablePanel tablePanel = new TablePanel(this, width, height, studentData);
+        CustomPanel customPanel = new CustomPanel(this, width, height, studentData);
+
+
+        cardPanel.add(searchPanel, "Search Panel");
+        cardPanel.add(tablePanel, "Table Panel");
+        cardPanel.add(customPanel, "Custom Panel");
+        add(cardPanel);
+        setVisible(true);
+
+
         cardLayout.show(cardPanel, "Custom Panel");
         System.out.println("function : showCustomPanel()");
     }
-    
 }
 

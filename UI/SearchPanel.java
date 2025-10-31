@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import Subject.*;
 
 public class SearchPanel extends JPanel implements ActionListener{
     private AppFrame appFrame;
@@ -11,7 +12,7 @@ public class SearchPanel extends JPanel implements ActionListener{
     private JButton goToTablePanel;
     private JButton goToCustomPanel;
 
-    public SearchPanel(AppFrame frame, int width, int height){
+    public SearchPanel(AppFrame frame, int width, int height, StudentData studentData){
         this.appFrame = frame;
         setLayout(null);
 
@@ -27,7 +28,7 @@ public class SearchPanel extends JPanel implements ActionListener{
 
 
 
-        SidebarPanel sidebar = new SidebarPanel(frame, width, height, 1);
+        SidebarPanel sidebar = new SidebarPanel(frame, width, height, 1, studentData);
         sidebar.setOpaque(false);
         sidebar.setBounds(0, 0, 200, height);
         layer.add(sidebar, JLayeredPane.PALETTE_LAYER);

@@ -9,6 +9,7 @@ public class Student{
     private String studentName;
     private String major;
     private ArrayList<Subject> subjects;
+    private ArrayList<String> details;
 
     public Student(String username, String password, String studentId, String studentName, String major){
         this.username = username;
@@ -29,6 +30,9 @@ public class Student{
     }
     public String getStudentId(){
         return this.studentId;
+    }
+    public String getStudentName(){
+        return this.studentName;
     }
     public String getId(){
         return this.studentId;

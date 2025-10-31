@@ -4,15 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import Subject.*;
 
 public class Detail extends JPanel{
-    private String Id;
-    private String Name;
 
 
-    public Detail(String Id, String Name){
-        this.Id = Id;
-        this.Name = Name;
+    public Detail(StudentData studentData){
 
         setLayout(null);
         JPanel sidebar = new JPanel();

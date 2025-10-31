@@ -4,13 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import Subject.*;
+
 public class TablePanel extends JPanel implements ActionListener{
     private AppFrame appFrame;
     private JButton goToLoginPanel;
     private JButton goToSearchPanel;
     private JButton goToCustomPanel;
 
-    public TablePanel(AppFrame frame, int width, int height){
+    public TablePanel(AppFrame frame, int width, int height, StudentData studentData){
         this.appFrame = frame;
 
         this.appFrame = frame;
@@ -25,7 +27,7 @@ public class TablePanel extends JPanel implements ActionListener{
         background.setOpaque(true);
         background.setBackground(Color.black);
         background.setLayout(null);
-            Detail detail = new Detail("014320112-65", "Data_I");
+            Detail detail = new Detail(studentData);
             detail.setOpaque(false);
             detail.setBounds(0,0,320,160);
             background.add(detail);
@@ -33,7 +35,7 @@ public class TablePanel extends JPanel implements ActionListener{
         layer.add(background, JLayeredPane.DEFAULT_LAYER);
 
 
-        SidebarPanel sidebar = new SidebarPanel(frame, width, height, 0);
+        SidebarPanel sidebar = new SidebarPanel(frame, width, height, 0, studentData);
         sidebar.setOpaque(false);
         sidebar.setBounds(0, 0, 200, height);
         layer.add(sidebar, JLayeredPane.PALETTE_LAYER);
