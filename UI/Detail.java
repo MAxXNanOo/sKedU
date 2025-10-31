@@ -15,7 +15,7 @@ public class Detail extends JPanel{
         JPanel sidebar = new JPanel();
         sidebar.setBounds(0, 0, 320, 160);
         sidebar.setOpaque(true);
-        sidebar.setBackground(Color.cyan);
+        sidebar.setBackground(Color.gray);
 
 
 

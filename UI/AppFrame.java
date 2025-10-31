@@ -53,14 +53,10 @@ public class AppFrame extends JFrame {
         System.out.println("function : showLogin()");
     }
     public void showTablePanel() {
-        SearchPanel searchPanel = new SearchPanel(this, width, height, studentData);
         TablePanel tablePanel = new TablePanel(this, width, height, studentData);
-        CustomPanel customPanel = new CustomPanel(this, width, height, studentData);
 
 
-        cardPanel.add(searchPanel, "Search Panel");
         cardPanel.add(tablePanel, "Table Panel");
-        cardPanel.add(customPanel, "Custom Panel");
         add(cardPanel);
         setVisible(true);
 
@@ -71,13 +67,9 @@ public class AppFrame extends JFrame {
     }
     public void showSearchPanel(){
         SearchPanel searchPanel = new SearchPanel(this, width, height, studentData);
-        TablePanel tablePanel = new TablePanel(this, width, height, studentData);
-        CustomPanel customPanel = new CustomPanel(this, width, height, studentData);
 
 
         cardPanel.add(searchPanel, "Search Panel");
-        cardPanel.add(tablePanel, "Table Panel");
-        cardPanel.add(customPanel, "Custom Panel");
         add(cardPanel);
         setVisible(true);
 
@@ -86,13 +78,9 @@ public class AppFrame extends JFrame {
         System.out.println("function : showSearchPanel()");
     }
     public void showCustomPanel(){
-        SearchPanel searchPanel = new SearchPanel(this, width, height, studentData);
-        TablePanel tablePanel = new TablePanel(this, width, height, studentData);
         CustomPanel customPanel = new CustomPanel(this, width, height, studentData);
 
 
-        cardPanel.add(searchPanel, "Search Panel");
-        cardPanel.add(tablePanel, "Table Panel");
         cardPanel.add(customPanel, "Custom Panel");
         add(cardPanel);
         setVisible(true);

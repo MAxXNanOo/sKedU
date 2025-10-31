@@ -23,6 +23,21 @@ public class CustomPanel extends JPanel implements ActionListener{
         background.setBounds(0, 0, width, height);
         background.setOpaque(true);
         background.setBackground(Color.white);
+        background.setLayout(null);
+            Table table = new Table(studentData);
+            table.setOpaque(false);
+            table.setBounds(400, 100, 600, 220);
+            background.add(table);
+
+            Search search = new Search(studentData);
+            search.setOpaque(false);
+            search.setBounds(200,400,320,160);
+            background.add(search);
+
+            Detail detail = new Detail(studentData);
+            detail.setOpaque(false);
+            detail.setBounds(800,400,320,160);
+            background.add(detail);
         layer.add(background, JLayeredPane.DEFAULT_LAYER);
 
         SidebarPanel sidebar = new SidebarPanel(frame, width, height, 2, studentData);
