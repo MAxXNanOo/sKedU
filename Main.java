@@ -8,10 +8,10 @@ import table.*;
 
 public class Main {
     public static void main(String[] args) {
-        Data data = new Data("KUdata/KUKPSForTest.csv");
-        data.readCSV();
+        // Data data = new Data("KUdata/KUKPSForTest.csv");
+        // data.setSubjects();
         
-        data.displayAll();
+        // data.displayAll();
 
         SwingUtilities.invokeLater(() -> new AppFrame(1280, 720));
     }

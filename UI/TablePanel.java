@@ -10,7 +10,7 @@ public class TablePanel extends JPanel implements ActionListener{
     private JButton goToSearchPanel;
     private JButton goToCustomPanel;
 
-    public TablePanel(AppFrame frame, int width, int height, Color backgroundColor, Color sidebarColor, Color chooseIconColor){
+    public TablePanel(AppFrame frame, int width, int height){
         this.appFrame = frame;
 
         this.appFrame = frame;
@@ -33,7 +33,7 @@ public class TablePanel extends JPanel implements ActionListener{
         layer.add(background, JLayeredPane.DEFAULT_LAYER);
 
 
-        SidebarPanel sidebar = new SidebarPanel(frame, width, height, backgroundColor, sidebarColor, chooseIconColor, 0);
+        SidebarPanel sidebar = new SidebarPanel(frame, width, height, 0);
         sidebar.setOpaque(false);
         sidebar.setBounds(0, 0, 200, height);
         layer.add(sidebar, JLayeredPane.PALETTE_LAYER);
