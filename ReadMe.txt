@@ -54,8 +54,8 @@
 ให้รันคำสั่งนี้ตามลำดับ
 
 chcp 65001
-javac -encoding UTF-8 ชื่อไฟล์ที่เป็นMain.java
-java ชื่อไฟล์ที่เป็นMain
+javac -encoding UTF-8 Main.java
+java Main
 
 
 

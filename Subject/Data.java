@@ -222,5 +222,10 @@ public class Data {
             }
         }
     }
+
+
+    public ArrayList<Subject> getSubjects(){
+        return subjects;
+    }
 }
 
