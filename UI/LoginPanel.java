@@ -36,7 +36,7 @@ public class LoginPanel extends JPanel implements ActionListener {
             grid.weightx=1;
             grid.weighty=0;
 
-            JLabel logo = new JLabel(new ImageIcon((new ImageIcon("Icon/sKedU.png")).getImage().getScaledInstance(303, 123, Image.SCALE_SMOOTH)));
+            JLabel logo = new JLabel(new ImageIcon((new ImageIcon("Icon/logosKedU.png")).getImage().getScaledInstance(303, 400, Image.SCALE_SMOOTH)));
             // logo.setBounds(0, 0, 303, 123);
             grid.gridx = 0;
             grid.gridy = 0;

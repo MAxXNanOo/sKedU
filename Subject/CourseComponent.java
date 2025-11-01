@@ -124,4 +124,7 @@ public class CourseComponent {
     public ArrayList<String> getTeacherNames() {
         return teacherNames;
     }
+
+
+
 }
