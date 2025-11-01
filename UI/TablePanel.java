@@ -12,7 +12,7 @@ public class TablePanel extends JPanel implements ActionListener{
     private JButton goToSearchPanel;
     private JButton goToCustomPanel;
 
-    public TablePanel(AppFrame frame, int width, int height, StudentData studentData){
+    public TablePanel(AppFrame frame, int width, int height, StudentData studentData, Data data){
         this.appFrame = frame;
 
         this.appFrame = frame;
@@ -27,12 +27,12 @@ public class TablePanel extends JPanel implements ActionListener{
         background.setOpaque(true);
         background.setBackground(Color.WHITE);
         background.setLayout(null);
-            Table table = new Table(studentData);
+            Table table = new Table(studentData, data);
             table.setOpaque(false);
             table.setBounds(125, 25, 1080, 400);
             background.add(table);
 
-            Detail detail = new Detail(studentData);
+            Detail detail = new Detail(studentData, data);
             detail.setOpaque(false);
             detail.setBounds(320,500,320,160);
             background.add(detail);
@@ -40,7 +40,7 @@ public class TablePanel extends JPanel implements ActionListener{
         layer.add(background, JLayeredPane.DEFAULT_LAYER);
 
 
-        SidebarPanel sidebar = new SidebarPanel(frame, width, height, 0, studentData);
+        SidebarPanel sidebar = new SidebarPanel(frame, width, height, 0, studentData, data);
         sidebar.setOpaque(false);
         sidebar.setBounds(0, 0, 200, height);
         layer.add(sidebar, JLayeredPane.PALETTE_LAYER);

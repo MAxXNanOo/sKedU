@@ -12,7 +12,7 @@ public class SearchPanel extends JPanel implements ActionListener{
     private JButton goToTablePanel;
     private JButton goToCustomPanel;
 
-    public SearchPanel(AppFrame frame, int width, int height, StudentData studentData){
+    public SearchPanel(AppFrame frame, int width, int height, StudentData studentData, Data data){
         this.appFrame = frame;
         setLayout(null);
 
@@ -23,12 +23,12 @@ public class SearchPanel extends JPanel implements ActionListener{
         JPanel background = new JPanel();
         background.setBounds(0, 0, width, height);
         background.setOpaque(true);
-        background.setBackground(Color.gray);
+        background.setBackground(Color.white);
         layer.add(background, JLayeredPane.DEFAULT_LAYER);
 
 
 
-        SidebarPanel sidebar = new SidebarPanel(frame, width, height, 1, studentData);
+        SidebarPanel sidebar = new SidebarPanel(frame, width, height, 1, studentData, data);
         sidebar.setOpaque(false);
         sidebar.setBounds(0, 0, 200, height);
         layer.add(sidebar, JLayeredPane.PALETTE_LAYER);

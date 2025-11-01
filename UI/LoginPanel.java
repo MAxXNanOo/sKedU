@@ -12,7 +12,7 @@ public class LoginPanel extends JPanel implements ActionListener {
     private JButton goToTablePanel;
     
 
-    public LoginPanel(AppFrame frame, int width, int height, StudentData studentData) {
+    public LoginPanel(AppFrame frame, int width, int height, StudentData studentData, Data data) {
         this.appFrame = frame;
         setLayout(new BorderLayout());
 

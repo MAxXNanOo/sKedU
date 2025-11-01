@@ -21,6 +21,17 @@ public class Student{
     }
 
 
+
+    public void addSubject(Subject subject){
+        this.subjects.add(subject);
+    }
+    public void addDetail(String detail){
+        if(this.details == null){
+            this.details = new ArrayList<String>();
+        }
+        this.details.add(detail);
+    }
+
     // Get
     public String getUsername(){
         return this.username;
@@ -36,5 +47,14 @@ public class Student{
     }
     public String getId(){
         return this.studentId;
+    }
+    public String getMajor(){
+        return this.major;
+    }
+    public ArrayList<Subject> getSubjects(){
+        return this.subjects;
+    }
+    public ArrayList<String> getDetails(){
+        return this.details;
     }
 }

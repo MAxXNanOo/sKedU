@@ -9,7 +9,7 @@ import Subject.*;
 public class Detail extends JPanel{
 
 
-    public Detail(StudentData studentData){
+    public Detail(StudentData studentData, Data data){
 
         setLayout(null);
         JPanel sidebar = new JPanel();

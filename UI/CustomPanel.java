@@ -11,7 +11,7 @@ public class CustomPanel extends JPanel implements ActionListener{
 
 
 
-    public CustomPanel(AppFrame frame, int width, int height, StudentData studentData){
+    public CustomPanel(AppFrame frame, int width, int height, StudentData studentData, Data data){
         this.appFrame = frame;
         setLayout(null);
 
@@ -24,23 +24,23 @@ public class CustomPanel extends JPanel implements ActionListener{
         background.setOpaque(true);
         background.setBackground(Color.white);
         background.setLayout(null);
-            Table table = new Table(studentData);
+            Table table = new Table(studentData, data);
             table.setOpaque(false);
             table.setBounds(125, 25, 1080, 400);
             background.add(table);
 
-            Search search = new Search(studentData);
+            Search search = new Search(studentData, data);
             search.setOpaque(false);
             search.setBounds(125,500,320,160);
             background.add(search);
 
-            Detail detail = new Detail(studentData);
+            Detail detail = new Detail(studentData, data);
             detail.setOpaque(false);
             detail.setBounds(800,500,320,160);
             background.add(detail);
         layer.add(background, JLayeredPane.DEFAULT_LAYER);
 
-        SidebarPanel sidebar = new SidebarPanel(frame, width, height, 2, studentData);
+        SidebarPanel sidebar = new SidebarPanel(frame, width, height, 2, studentData, data);
         sidebar.setOpaque(false);
         sidebar.setBounds(0, 0, 200, height);
         layer.add(sidebar, JLayeredPane.PALETTE_LAYER);

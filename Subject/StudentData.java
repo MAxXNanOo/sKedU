@@ -30,7 +30,6 @@ public class StudentData {
         String csvSplitBy = ",";
         int index;
 
-
         try (BufferedReader br = new BufferedReader(
             new InputStreamReader(new FileInputStream(csvFile), "UTF-8"))) {
 
@@ -43,6 +42,27 @@ public class StudentData {
                 else{
                     Student student = new Student(values.get(0), values.get(1), values.get(2), values.get(3), values.get(4));
                     students.add(student);
+                    
+                    for(int i=5 ; i<values.size() ; i++){
+                        String detail = values.get(i).trim();
+                        if(detail.startsWith("Subject")){
+                            i++;
+                            while(i < values.size() && !values.get(i).trim().startsWith("Detail")){
+                                student.addSubject(new Subject(values.get(i).trim(), "", 0));
+                                i++;
+                            }
+                            i--;
+                        }
+                        else if(detail.startsWith("Detail")){
+                            i++;
+                            while(i < values.size() && !values.get(i).trim().startsWith("Subject")){
+                                student.addDetail(values.get(i).trim());
+                                i++;
+                            }
+                            i--;
+                        }
+                    }
+
 
                     // some body helpME
                 }

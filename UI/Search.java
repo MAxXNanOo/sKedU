@@ -9,7 +9,7 @@ import Subject.*;
 public class Search extends JPanel{
 
 
-    public Search(StudentData studentData){
+    public Search(StudentData studentData, Data data){
 
         setLayout(null);
         JPanel background = new JPanel();

@@ -9,7 +9,7 @@ import Subject.*;
 //used vs Copilot
 public class Table extends JPanel{
     StudentData studentData;
-    public Table(StudentData studentData){
+    public Table(StudentData studentData, Data data){
         this.studentData = studentData;
 
         setLayout(null);

@@ -35,7 +35,7 @@ public class AppFrame extends JFrame {
         cardPanel = new JPanel(cardLayout);
 
         // สร้าง panel ทั้งสอง
-        LoginPanel loginPanel = new LoginPanel(this, width, height, studentData);
+        LoginPanel loginPanel = new LoginPanel(this, width, height, studentData, data);
 
         // เพิ่ม panel ลงใน cardPanel
         cardPanel.add(loginPanel, "Login Panel");
@@ -53,7 +53,7 @@ public class AppFrame extends JFrame {
         System.out.println("function : showLogin()");
     }
     public void showTablePanel() {
-        TablePanel tablePanel = new TablePanel(this, width, height, studentData);
+        TablePanel tablePanel = new TablePanel(this, width, height, studentData, data);
 
 
         cardPanel.add(tablePanel, "Table Panel");
@@ -66,7 +66,7 @@ public class AppFrame extends JFrame {
         System.out.println("function : showTablePanel()");
     }
     public void showSearchPanel(){
-        SearchPanel searchPanel = new SearchPanel(this, width, height, studentData);
+        SearchPanel searchPanel = new SearchPanel(this, width, height, studentData, data);
 
 
         cardPanel.add(searchPanel, "Search Panel");
@@ -78,7 +78,7 @@ public class AppFrame extends JFrame {
         System.out.println("function : showSearchPanel()");
     }
     public void showCustomPanel(){
-        CustomPanel customPanel = new CustomPanel(this, width, height, studentData);
+        CustomPanel customPanel = new CustomPanel(this, width, height, studentData, data);
 
 
         cardPanel.add(customPanel, "Custom Panel");
