@@ -31,14 +31,27 @@ public class CustomPanel extends JPanel implements ActionListener{
 
             Search search = new Search(studentData, data);
             search.setOpaque(false);
-            search.setBounds(125,500,320,160);
+            search.setBounds(125,450,320,160);
             background.add(search);
 
             Detail detail = new Detail(studentData, data);
             detail.setOpaque(false);
-            detail.setBounds(800,500,320,160);
+            detail.setBounds(800,450,320,160);
             background.add(detail);
+
+            JPanel confirm = new JPanel();
+            confirm.setBounds(500,550,150,40);
+            confirm.setOpaque(true);
+            confirm.setBackground(Color.green);
+                JLabel confirmLabel = new JLabel("Confirm");
+                confirmLabel.setFont(new Font("Arial", Font.BOLD, 20));
+                confirmLabel.setForeground(Color.white);
+                confirmLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                confirm.add(confirmLabel);
+            background.add(confirm);
+
         layer.add(background, JLayeredPane.DEFAULT_LAYER);
+
 
         SidebarPanel sidebar = new SidebarPanel(frame, width, height, 2, studentData, data);
         sidebar.setOpaque(false);

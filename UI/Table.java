@@ -8,9 +8,11 @@ import Subject.*;
 
 //used vs Copilot
 public class Table extends JPanel{
-    StudentData studentData;
+    private Student student;
+
+
     public Table(StudentData studentData, Data data){
-        this.studentData = studentData;
+        this.student = studentData.getStudentLogin();
 
         setLayout(null);
         JPanel background = new JPanel();
@@ -65,6 +67,71 @@ public class Table extends JPanel{
                 background.add(day, grid);
             }
 
+
+            JPanel filter = new JPanel();
+            grid.gridx = 1;
+            grid.gridy = 2;
+            grid.gridwidth = 11;
+            grid.gridheight = 5;
+            filter.setOpaque(false);
+            filter.setBackground(Color.white);
+
+
+                //----------------------------------------------
+                for(Subject sub : student.getSubjects()){
+                    for(CourseComponent comp : sub.getAllLab()){
+                        int index = 0;
+                        for(String dayTime : comp.getDayTimes()){
+                            String day = comp.getDays().get(index);
+                            Double start = comp.getStarts().get(index);
+                            Double end = comp.getEnds().get(index);
+                            String room = comp.getRooms().get(index);
+
+                            boxPanel box = new boxPanel(sub.getName() + " Lab (" + room + ")", new Color(144,238,144));
+                            int weight = (int)((end - start) * 100);
+                            int height = 90;
+                            int xPos = 125 + (int)((start - 8) * 100);
+                            int yPos;
+
+                            if(day.equals("วันจันทร์")){
+                                yPos = 75;
+                            }
+                            else if(day.equals("วันอังคาร")){
+                                yPos = 75 + 90;
+                            }
+                            else if(day.equals("วันพุธ")){
+                                yPos = 75 + 90 * 2;
+                            }
+                            else if(day.equals("วันพฤหัสบดี")){
+                                yPos = 75 + 90 * 3;
+                            }
+                            else if(day.equals("วันศุกร์")){
+                                yPos = 75 + 90 * 4;
+                            }
+                            else{
+                                yPos = 75 + 90 * 5;
+                            }
+
+                            box.setBounds(xPos, yPos, weight, height);
+                            filter.add(box);
+                            index++;
+                        }
+                    }
+                }
+
+            background.add(filter, grid);
+
         add(background);
-    }  
+    }
+
+    public class boxPanel extends JPanel{
+        public boxPanel(String text, Color color){
+            setOpaque(true);
+            setBackground(color);
+            JLabel label = new JLabel(text);
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            label.setFont(new Font("Arial", Font.BOLD, 14));
+            add(label);
+        }
+    }
 }

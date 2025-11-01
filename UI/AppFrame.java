@@ -10,8 +10,8 @@ public class AppFrame extends JFrame {
     CardLayout cardLayout;
     JPanel cardPanel;
 
-    Data data = new Data("KUdata/KUKPSForTest.csv");
-    StudentData studentData = new StudentData("KUdata/student.csv");
+    Data data = new Data("KUdata\\KUKPSForTest.csv");
+    StudentData studentData = new StudentData("KUdata\\student.csv", data);
 
     int width, height;
 
@@ -27,8 +27,14 @@ public class AppFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 // Load data
-        studentData.setStudents();
         data.setSubjects();
+        studentData.setStudents();
+
+        data.displayAll();
+        // data.Test();
+        // data.findSubjectById("01131111-67");
+        // data.displayDataById("01131111-67");
+        // System.out.printf("-%s-", data.findSubjectById("01130171-64").getName());
 
         // ตั้งค่า CardLayout
         cardLayout = new CardLayout();

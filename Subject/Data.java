@@ -23,7 +23,7 @@ public class Data {
     //Jang 5/10
 
     // Safe integer parsing
-    private int safeParseInt(String s) {
+    public int safeParseInt(String s) {
         try {
             return Integer.parseInt(s.trim());
         } catch (Exception e) {
@@ -32,95 +32,105 @@ public class Data {
     }
 
     // Find a subject by its ID
-    private Subject findSubjectById(String id) {
+    public Subject findSubjectById(String id) {
         for (Subject s : subjects) {
-            if (s.getId().equals(id)) return s;
+            // System.out.printf("Checking subject ID: %s against %s\n", s.getId(), id);
+            if (s.getId().equals(id)) {
+                // System.out.printf("Found subject: %s - %s\n", s.getId(), s.getName());
+                return s;
+            }
         }
         return null;
     }
 
     // Read CSV
-    public void setSubjects() {
-        try (BufferedReader br = new BufferedReader(
-                new InputStreamReader(new FileInputStream(csvPath), "UTF-8"))) {
+    public void setSubjects(){
 
-            String line;
-            int lineNumber = 0;
+        Subject subject = null;
 
-            while ((line = br.readLine()) != null) {
-                lineNumber++;
+        String id = null;
+        String name = null;
+        int totalCredit;
 
-                // Skip header rows if needed
-                if (lineNumber <= 7) continue;
+        int credit = 0;
+        int sec = 0;
+        String dayTime = null;
+        String room = null;
+        String major = null;
+        int maxStudent = 0;
+        String teacherName = null;
 
-                // Split CSV safely (handle commas inside quotes)
-                String[] data = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
-                if (data.length < 15 || data[0].trim().isEmpty()) continue;
+        String row;
+        int index=-1;
+        String pattern = "^(\\d{8}-\\d{2})(.*)$";
+        int lecORLab;
 
-                // Remove quotes and trim
-                for (int i = 0; i < data.length; i++) {
-                    data[i] = data[i].replaceAll("^\"|\"$", "").trim();
-                }
+        try(BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(csvPath),"UTF-8"))){
 
-                // Parse Subject info
-                String firstColumn = data[0];
-                String id, name;
-                int spaceIndex = firstColumn.indexOf(' ');
-                if (spaceIndex > 0) {
-                    id = firstColumn.substring(0, spaceIndex).trim();
-                    name = firstColumn.substring(spaceIndex + 1).trim();
-                } else {
-                    id = firstColumn;
-                    name = "";
-                }
+            while((row = br.readLine()) != null){
+                ArrayList<String> values = splitCSVLine(row);
+                if (values.size() < 15) continue;
 
-                int totalCredit = safeParseInt(data[1]);
-
-                Subject subject = findSubjectById(id);
-                if (subject == null) {
-                    subject = new Subject(id, name, totalCredit);
+            
+                if (values.get(0).matches("\\d{8}-\\d{2}.*")) {
+                    id = values.get(0).replaceAll(pattern, "$1");
+                    name = values.get(0).replaceAll(pattern, "$2").trim();
+                    subject = new Subject(id, name, 0);
                     subjects.add(subject);
                 }
+            
+                if (!values.get(2).equals("") && values.get(2).matches("[0-9]")) {
+                    totalCredit = Integer.parseInt(values.get(1));
+                    credit = Integer.parseInt(values.get(2));
+                    sec = Integer.parseInt(values.get(3));
+                    dayTime = values.get(4);
+                    room = values.get(5);
+                    major = values.get(6);
+                    maxStudent = Integer.parseInt(values.get(7));
+                    teacherName = values.get(14);
 
-                // Teacher name (column 15)
-                String teacherName = data[14];
-
-                // ----- Lecture -----
-                int lectureCredit = safeParseInt(data[2]);
-                int lectureSec = safeParseInt(data[3]);
-                String lectureDayTimes = data[4];
-                String lectureRoom = data[5];
-                String lectureMajors = data[6];
-                int lectureMaxStudent = safeParseInt(data[7]);
-
-                if (lectureCredit > 0) {
-                    CourseComponent lecture = new CourseComponent(
-                            lectureCredit, lectureSec, lectureDayTimes, lectureRoom,
-                            lectureMajors, lectureMaxStudent, teacherName
-                    );
-                    subject.addLecture(lecture);
+                    subject.setTotalCredit(totalCredit);
+                    subject.addLecture(new CourseComponent(credit, sec, dayTime, room, major, maxStudent, teacherName));
                 }
+                else if (!values.get(8).equals("") && values.get(8).matches("[0-9]")) {
+                    credit = Integer.parseInt(values.get(8));
+                    sec = Integer.parseInt(values.get(9));
+                    dayTime = values.get(10);
+                    room = values.get(11);
+                    major = values.get(12);
+                    maxStudent = Integer.parseInt(values.get(13));
+                    teacherName = values.get(14);
 
-                // ----- Lab -----
-                int labCredit = safeParseInt(data[8]);
-                int labSec = safeParseInt(data[9]);
-                String labDayTimes = data[10];
-                String labRoom = data[11];
-                String labMajors = data[12];
-                int labMaxStudent = safeParseInt(data[13]);
-
-                if (labCredit > 0) {
-                    CourseComponent lab = new CourseComponent(
-                            labCredit, labSec, labDayTimes, labRoom,
-                            labMajors, labMaxStudent, teacherName
-                    );
-                    subject.addLab(lab);
+                    subject.addLab(new CourseComponent(credit, sec, dayTime, room, major, maxStudent, teacherName));
                 }
             }
-        } catch (IOException e) {
+
+        } catch(IOException e){
             e.printStackTrace();
         }
+    }
+    //chat GPT
+    public static ArrayList<String> splitCSVLine(String line) {
+        ArrayList<String> result = new ArrayList<>();
+        StringBuilder current = new StringBuilder();
+        boolean inQuotes = false;
+
+        for (int i = 0; i < line.length(); i++) {
+            char ch = line.charAt(i);
+
+            if (ch == '"') {
+                inQuotes = !inQuotes; // toggle quote state
+            } else if (ch == ',' && !inQuotes) {
+                result.add(current.toString().trim());
+                current.setLength(0); // reset buffer
+            } else {
+                current.append(ch);
+            }
+        }
+
+        result.add(current.toString().trim()); // add last item
+        return result;
     }
 
 
@@ -178,6 +188,28 @@ public class Data {
 
     }
 
+    public CourseComponent getCourseForStudent(String type, String id, int section){
+        for(Subject sub : subjects){
+            if(sub.getId().equals(id)){
+                if(type.equals("Lec")){
+                    for(CourseComponent lec : sub.getAllLecture()){
+                        if(lec.getSection() == section){
+                            return lec;
+                        }
+                    }
+                }
+                else if(type.equals("Lap")){
+                    for(CourseComponent lab : sub.getAllLab()){
+                        if(lab.getSection() == section){
+                            return lab;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     public void displayAll(){
         for(Subject sub : subjects){
             System.out.printf("\n%s %s\n",sub.getId(), sub.getName());
@@ -185,9 +217,10 @@ public class Data {
             for(CourseComponent lec : sub.getAllLecture()){
                 System.out.printf("    %d %d %d %s %s %s %d %s\n", sub.getTotalCredit(), lec.getCredit(), lec.getSection(), lec.getDayTimes(), lec.getRooms(), lec.getMajors(), lec.getMaxStudent(), lec.getTeacherNames());
             }
+            for(CourseComponent lab : sub.getAllLab()){
+                System.out.printf("    %d %d %d %s %s %s %d %s\n", sub.getTotalCredit(), lab.getCredit(), lab.getSection(), lab.getDayTimes(), lab.getRooms(), lab.getMajors(), lab.getMaxStudent(), lab.getTeacherNames());
+            }
         }
     }
-
-
 }
 
