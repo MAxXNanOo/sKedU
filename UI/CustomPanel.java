@@ -31,8 +31,14 @@ public class CustomPanel extends JPanel implements ActionListener{
 
             Search search = new Search(studentData, data, frame, 2);
             search.setOpaque(false);
-            search.setBounds(80,450,850,160);
-            background.add(search);
+
+            JPanel searchWrapper = new JPanel(new BorderLayout());
+            searchWrapper.setOpaque(false);
+            searchWrapper.setBounds(75, 380, 750, 300);
+            searchWrapper.add(search, BorderLayout.CENTER);
+            background.add(searchWrapper);
+            searchWrapper.revalidate();
+            searchWrapper.repaint();
 
             Detail detail = new Detail(studentData.getStudentTmp(), data);
             detail.setOpaque(false);
