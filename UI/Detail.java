@@ -27,7 +27,7 @@ public class Detail extends JPanel {
         // ===== Content =====
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
-        contentPanel.setBackground(Color.WHITE);
+        contentPanel.setBackground(Color.lightGray);
         contentPanel.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
 
         if (student == null) {

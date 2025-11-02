@@ -270,7 +270,10 @@ public class StudentData {
             
             if (courseType.equals("Lec")) {
                 CourseComponent lecture = data.getCourseForStudent(courseType, courseId, section);
-                if(!checkMajor(lecture, student.getMajor())) return 4;
+                if(!checkMajor(lecture, student.getMajor())){ 
+                    System.out.printf("OUT\n");
+                    return 4; 
+                }
                 if (lecture != null && checkTimeConflict(student, courseType, courseId, section)) {
                     subject.addLecture(lecture);
                 } else {
@@ -539,7 +542,8 @@ public class StudentData {
 
     public boolean checkMajor(CourseComponent lecLab, String major){
         for(String mj : lecLab.getMajors()){
-            if(major.equals(mj) || mj.equals("ALL")) return true;
+            // System.out.printf("\n%s\n",mj);
+            if(mj.trim().startsWith(major) || mj.trim().startsWith("ALL")) return true;
         }
         return false;
     }

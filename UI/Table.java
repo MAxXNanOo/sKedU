@@ -31,7 +31,7 @@ public class Table extends JPanel {
         // ---------- หัวตาราง ----------
         JLabel title = new JLabel("ตารางเรียน");
         title.setOpaque(true);
-        title.setBackground(new Color(100, 149, 237));
+        title.setBackground(new Color(114, 163, 247));
         title.setHorizontalAlignment(SwingConstants.CENTER);
         title.setFont(thaiFontTitle);
         title.setForeground(Color.white);
@@ -42,7 +42,7 @@ public class Table extends JPanel {
         // ---------- คอลัมน์เวลา ----------
         JLabel timeHeader = new JLabel("วัน / เวลา");
         timeHeader.setOpaque(true);
-        timeHeader.setBackground(Color.gray);
+        timeHeader.setBackground(new Color(114, 163, 247));
         timeHeader.setHorizontalAlignment(SwingConstants.CENTER);
         timeHeader.setFont(thaiFont);
         timeHeader.setForeground(Color.white);
@@ -60,7 +60,7 @@ public class Table extends JPanel {
         for (int i = 8; i <= 18; i++) {
             JLabel timeLabel = new JLabel(i + ":00", SwingConstants.CENTER);
             timeLabel.setOpaque(true);
-            timeLabel.setBackground(Color.gray);
+            timeLabel.setBackground(new Color(114, 163, 247));
             timeLabel.setFont(thaiFont);
             timeLabel.setForeground(Color.white);
             timeLabel.setBorder(border);
@@ -72,13 +72,14 @@ public class Table extends JPanel {
         for (int i = 0; i < 5; i++) {
             JLabel dayLabel = new JLabel(days[i], SwingConstants.CENTER);
             dayLabel.setOpaque(true);
-            dayLabel.setBackground(Color.gray);
+            dayLabel.setBackground(getColorByDay(days[i])); // ✅ ใช้สีตามวัน
             dayLabel.setFont(thaiFont);
-            dayLabel.setForeground(Color.white);
+            dayLabel.setForeground(Color.black); // ✅ เปลี่ยนเป็นดำให้อ่านง่าย
             dayLabel.setBorder(border);
             dayLabel.setBounds(0, startY + (i + 1) * cellHeight, 180, cellHeight);
             background.add(dayLabel);
         }
+
 
         // ---------- ตารางว่าง ----------
         JLayeredPane tableLayer = new JLayeredPane();

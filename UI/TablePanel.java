@@ -34,7 +34,7 @@ public class TablePanel extends JPanel implements ActionListener{
 
             Detail detail = new Detail(studentData.getStudentTmp(), data);
             detail.setOpaque(false);
-            detail.setBounds(320,500,320,160);
+            detail.setBounds(930,500,320,160);
             background.add(detail);
 
         layer.add(background, JLayeredPane.DEFAULT_LAYER);

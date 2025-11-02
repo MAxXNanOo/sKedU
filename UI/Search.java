@@ -39,7 +39,7 @@ public class Search extends JPanel {
         // 🔹 แถบด้านบน (สีขาว อยู่ตรงกลาง)
         JPanel topPanel = new JPanel(new GridBagLayout());
         topPanel.setBackground(Color.WHITE);
-        topPanel.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 0));
+        topPanel.setBorder(BorderFactory.createEmptyBorder(30, 0, 10, 0));
 
         GridBagConstraints gbcTop = new GridBagConstraints();
         gbcTop.insets = new Insets(0, 10, 0, 10);

@@ -30,7 +30,7 @@ public class AppFrame extends JFrame {
         data.setSubjects();
         studentData.setStudents();
 
-        data.displayAll();
+        // data.displayAll();
         // data.Test();
         // System.out.printf("\n%f\n", data.findSubjectById("01417267-65").getAllLecture().get(0).getEnds().get(0));
         // data.displayDataById("01355103-67");
