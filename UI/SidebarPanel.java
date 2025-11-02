@@ -12,8 +12,6 @@ public class SidebarPanel extends JPanel {
     private JButton goToTablePanel;
     private JButton goToSearchPanel;
 
-
-    //check side bar
     private Timer sidebarTimer = null;
     private boolean isExpanded = false;
 
@@ -64,7 +62,6 @@ public class SidebarPanel extends JPanel {
 
                 JPanel customIconPanel = new JPanel();
                 grid.gridy = 3;
-                // customIconPanel.setOpaque(true);
                 customIconPanel.setBackground(sidebarColor);
                 sidebar.add(customIconPanel, grid);
                     addText(customIconPanel, "Icon/CustomPanelIcon.png", "ลงทะเบียนเรียน", 0);
@@ -113,7 +110,17 @@ public class SidebarPanel extends JPanel {
         });
             profilePanel.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
-                    appFrame.showLogin();
+                    int dialogResult = JOptionPane.showConfirmDialog(
+                        appFrame, 
+                        "Are you sure you want to log out?", 
+                        "ยืนยันการออกจากระบบ", 
+                        JOptionPane.YES_NO_OPTION, 
+                        JOptionPane.WARNING_MESSAGE 
+                    );
+
+                    if (dialogResult == JOptionPane.YES_OPTION) {
+                        performTransition(sidebar, width, -1);
+                    }
                 }
                 public void mouseEntered(MouseEvent e) {
                     animateSidebar(sidebar, true,width);
@@ -138,7 +145,7 @@ public class SidebarPanel extends JPanel {
             });
             tableIconPanel.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
-                    appFrame.showTablePanel();
+                    performTransition(sidebar, width, 0);
                 }
                 public void mouseEntered(MouseEvent e) {
                     animateSidebar(sidebar, true,width);
@@ -163,7 +170,7 @@ public class SidebarPanel extends JPanel {
             });
             searchIconPanel.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
-                    appFrame.showSearchPanel();
+                    performTransition(sidebar, width, 1);
                 }
                 public void mouseEntered(MouseEvent e) {
                     animateSidebar(sidebar, true,width);
@@ -188,7 +195,7 @@ public class SidebarPanel extends JPanel {
             });
             customIconPanel.addMouseListener(new MouseAdapter() {
                 public void mouseClicked(MouseEvent e) {
-                    appFrame.showCustomPanel();
+                    performTransition(sidebar, width, 2);
                 }
                 public void mouseEntered(MouseEvent e) {
                     animateSidebar(sidebar, true,width);
@@ -218,18 +225,14 @@ public class SidebarPanel extends JPanel {
     }
 
 
-        //Chat gpt
-    //sidebar animation 
     public void animateSidebar(JPanel sidebar, boolean expand, int width) {
         int expandedWidth = 200;
         int collapsedWidth = (int)(width*0.05);
         int step = 10;
         int delay = 10;
-        // ถ้าสถานะเหมือนเดิม ไม่ต้องทำอะไร
         if (expand == isExpanded) return;
         isExpanded = expand;
 
-        // หยุด Timer เดิมก่อนเริ่มใหม่
         if (sidebarTimer != null && sidebarTimer.isRunning()) {
             sidebarTimer.stop();
         }
@@ -255,9 +258,41 @@ public class SidebarPanel extends JPanel {
         });
         sidebarTimer.start();
     }
+    
+    public void performTransition(JPanel sidebar, int width, int targetPanelIndex) {
+    
+        if (isExpanded) {
+            animateSidebar(sidebar, false, width);
+        }
 
+        int animationDuration = 100; 
 
-
+        Timer transitionTimer = new Timer(animationDuration, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ((Timer)e.getSource()).stop();
+                
+                switch (targetPanelIndex) {
+                    case -1: // Login
+                        appFrame.showLogin();
+                        break;
+                    case 0: // Table Panel
+                        appFrame.showTablePanel();
+                        break;
+                    case 1: // Search Panel
+                        appFrame.showSearchPanel();
+                        break;
+                    case 2: // Custom Panel
+                        appFrame.showCustomPanel();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+        transitionTimer.setRepeats(false);
+        transitionTimer.start();
+    }
 
 
     public void addText(JPanel panel, String path, String text, int choose){
@@ -270,25 +305,35 @@ public class SidebarPanel extends JPanel {
                 .getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH)
             ));
 
-            // tableIcon.setBounds(50,0,32,32);
             JLabel tableText = new JLabel(" ");
             tableText.setForeground(Color.WHITE);
             tableText.setFont(new Font("Tahoma", Font.BOLD, 14));
             panel.add(tableIcon, BorderLayout.CENTER);
             panel.add(tableText, BorderLayout.EAST);
-            // panel.setBounds(0,0,(int)(1280*0.05), 720);
         }
         else if(choose == 1){
-            panel.setLayout(new BorderLayout());
+            panel.setLayout(new GridBagLayout());
+
+            GridBagConstraints gbc = new GridBagConstraints();
+            gbc.insets = new Insets(0, 15, 0, 5); 
+            gbc.anchor = GridBagConstraints.WEST; 
+            
             JLabel tableIcon = new JLabel(new ImageIcon(
                 (new ImageIcon(path))
                 .getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH)
             ));
+
             JLabel tableText = new JLabel(text);
             tableText.setForeground(Color.WHITE);
             tableText.setFont(new Font("Tahoma", Font.BOLD, 14));
-            panel.add(tableIcon, BorderLayout.WEST);
-            panel.add(tableText, BorderLayout.EAST);
+            
+            gbc.gridx = 0;
+            panel.add(tableIcon, gbc);
+            
+            gbc.gridx = 1;
+            gbc.weightx = 1.0; 
+            gbc.fill = GridBagConstraints.HORIZONTAL; 
+            panel.add(tableText, gbc);
         }
     }
 }

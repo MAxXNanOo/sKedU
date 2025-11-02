@@ -528,18 +528,6 @@ public class StudentData {
     }
 
 
-
-
-
-    public void clearStranded(Student student){
-        // if(student){
-        //     Stranded stranded = new Stranded(student.getDetails());
-        // }
-        // else{
-        //     return false;
-        // }
-    }
-
     public boolean checkMajor(CourseComponent lecLab, String major){
         for(String mj : lecLab.getMajors()){
             // System.out.printf("\n%s\n",mj);
@@ -547,6 +535,17 @@ public class StudentData {
         }
         return false;
     }
+
+
+
+
+    // public CourseComponent moveCourse(String detail){
+    //     ArrayList<String> str = detail.split(" ");
+
+    //     CourseComponent course = 
+    // }
+
+
 
 
     

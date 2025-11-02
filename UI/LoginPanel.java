@@ -9,7 +9,6 @@ public class LoginPanel extends JPanel implements ActionListener {
     private AppFrame appFrame;
     private JButton goToTablePanel;
 
-    // คลาสย่อยสำหรับ JPanel มุมโค้ง
     static class RoundedPanel extends JPanel {
         private int cornerRadius;
 
@@ -30,7 +29,6 @@ public class LoginPanel extends JPanel implements ActionListener {
         }
     }
 
-    // คลาสปุ่มมุมโค้ง
     class RoundedButton extends JButton {
         private int cornerRadius;
 
@@ -55,7 +53,6 @@ public class LoginPanel extends JPanel implements ActionListener {
         }
     }
 
-    // คลาส TextField มุมโค้ง
     class RoundedTextField extends JTextField {
         private int cornerRadius;
 
@@ -103,7 +100,6 @@ public class LoginPanel extends JPanel implements ActionListener {
         int panelX = (width - panelWidth) / 2;
         int panelY = (height - panelHeight) / 2;
 
-        // ใช้ RoundedPanel แทน JPanel
         RoundedPanel place = new RoundedPanel(30);
         Color semiTransparentWhite = new Color(255, 255, 255, 190);
         place.setBackground(semiTransparentWhite);
@@ -124,7 +120,6 @@ public class LoginPanel extends JPanel implements ActionListener {
         grid.anchor = GridBagConstraints.NORTH;
         place.add(logo, grid);
 
-        //KU_Logo
         ImageIcon smallLogoIcon = new ImageIcon(new ImageIcon("Icon/KU_Logo.png").getImage().getScaledInstance(70, 80, Image.SCALE_SMOOTH));
         JLabel smallLogo = new JLabel(smallLogoIcon);
         int logoX = width - 80 - 20;
@@ -133,44 +128,88 @@ public class LoginPanel extends JPanel implements ActionListener {
         layerPane.add(smallLogo, JLayeredPane.PALETTE_LAYER);
 
 
-        // Username
         RoundedTextField usernameField = new RoundedTextField(19, 15);
         usernameField.setText("username");
         usernameField.setBackground(Color.white);
+        usernameField.setForeground(Color.GRAY);
         grid.gridy = 1;
         grid.insets = new Insets(10, 0, 10, 0);
         place.add(usernameField, grid);
 
-        // Password
         RoundedTextField passwordField = new RoundedTextField(19, 15);
         passwordField.setText("password");
         passwordField.setBackground(Color.white);
+        passwordField.setForeground(Color.GRAY);
         grid.gridy = 2;
         place.add(passwordField, grid);
 
-        // Login Button
+        usernameField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (usernameField.getText().equals("username")) {
+                    usernameField.setText("");
+                    usernameField.setForeground(Color.BLACK);
+                }
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (usernameField.getText().isEmpty()) {
+                    usernameField.setText("username");
+                    usernameField.setForeground(Color.GRAY);
+                }
+            }
+        });
+
+        passwordField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (passwordField.getText().equals("password")) {
+                    passwordField.setText("");
+                    passwordField.setForeground(Color.BLACK);
+                }
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (passwordField.getText().isEmpty()) {
+                    passwordField.setText("password");
+                    passwordField.setForeground(Color.GRAY);
+                }
+            }
+        });
+
+
         RoundedButton loginButton = new RoundedButton("Login", 20);
         loginButton.setBackground(new Color(2, 179, 113));
         loginButton.setPreferredSize(new Dimension((int) (width * 0.09), (int) (height * 0.05)));
         grid.gridy = 3;
         grid.insets = new Insets(20, 0, 0, 0);
-        place.add(loginButton, grid);
-
+        
         loginButton.addActionListener(e -> {
             String username = usernameField.getText();
             String password = passwordField.getText();
+            
+            if (username.equals("username") || password.equals("password")) {
+                JOptionPane.showMessageDialog(appFrame, "Please enter your valid username and password.", "Login Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
             if (studentData.validateLogin(username, password)) {
                 System.out.println("Login successful!");
                 appFrame.showTablePanel();
             } else {
                 System.out.println("Invalid username or password.");
+                JOptionPane.showMessageDialog(appFrame, "Invalid username or password.", "Login Failed", JOptionPane.ERROR_MESSAGE);
             }
         });
 
         place.add(loginButton, grid);
 
-
         add(layerPane, BorderLayout.CENTER);
+        
+        setFocusable(true);
+        
+        SwingUtilities.invokeLater(() -> requestFocusInWindow());
+        
     }
 
     @Override

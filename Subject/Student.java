@@ -83,4 +83,10 @@ public class Student{
         }
         this.details.add(detail);
     }
+
+    public int deleteDetail(String dl){
+        details.remove(dl);
+        return 1;
+    }
+
 }

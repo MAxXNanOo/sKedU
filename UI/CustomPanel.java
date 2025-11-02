@@ -41,7 +41,7 @@ public class CustomPanel extends JPanel implements ActionListener{
             searchWrapper.revalidate();
             searchWrapper.repaint();
 
-            Detail detail = new Detail(studentData.getStudentTmp(), data);
+            Detail detail = new Detail(frame, studentData.getStudentTmp(), data, 2);
             detail.setOpaque(false);
             detail.setBounds(930,450,320,160);
             background.add(detail);
