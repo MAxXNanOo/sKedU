@@ -124,6 +124,35 @@ public class Table extends JPanel {
                         int yPos = getYByDay(day);
 
                         box.setBounds(xPos, yPos, width, height);
+                        box.addMouseListener(new MouseAdapter() {
+                                @Override
+                                public void mouseClicked(MouseEvent e) {
+                                    // ตั้งฟอนต์ Tahoma ให้ข้อความใน JOptionPane
+                                    UIManager.put("OptionPane.messageFont", new Font("Tahoma", Font.PLAIN, 14));
+                                    UIManager.put("OptionPane.buttonFont", new Font("Tahoma", Font.PLAIN, 14));
+
+                                    // ตัวเลือกปุ่ม
+                                    Object[] options = {"ปิด", "ถอนวิชา"};
+
+                                    // แสดง dialog
+                                    int choice = JOptionPane.showOptionDialog(
+                                            null,
+                                            sub.getName() + " Lab\nเวลา: " + dayTime + "\nห้อง: " + room,
+                                            "รายละเอียดวิชา",
+                                            JOptionPane.YES_NO_OPTION,
+                                            JOptionPane.INFORMATION_MESSAGE,
+                                            null,
+                                            options,
+                                            options[0]
+                                    );
+
+                                    // ถ้ากด "ถอนวิชา"
+                                    if (choice == 1) {
+                                        studentData.deleteSubjectFromStudentTmp("Lec", sub.getId(), section);
+                                        frame.showCustomPanel();
+                                    }
+                                }
+                            });
                         tableLayer.add(box, Integer.valueOf(1));
                         index++;
                     }
