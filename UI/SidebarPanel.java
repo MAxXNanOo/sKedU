@@ -67,7 +67,7 @@ public class SidebarPanel extends JPanel {
                 // customIconPanel.setOpaque(true);
                 customIconPanel.setBackground(sidebarColor);
                 sidebar.add(customIconPanel, grid);
-                    addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 0);
+                    addText(customIconPanel, "Icon/grid.png", "ลงทะเบียนเรียน", 0);
 
 
                 JPanel [] free = new JPanel[10];

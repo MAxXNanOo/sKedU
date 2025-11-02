@@ -154,61 +154,169 @@ public class StudentData {
     // }
 
 
-    public boolean addSubjectToStudentLogin(Student student, String courseType, String courseId, int section) {
-        boolean found = false;
-        if(student == null) return false; 
+    //return 0 = fail
+    //return 1 = success
+    //return 2 = time conflict
+    //return 3 = already added
+    public int addSubjectToStudentLogin(Student student, String courseType, String courseId, int section) {
+        int found = 0;
+        if(student == null) return 0; 
         else {
             for(Subject subject : student.getSubjects()){
                 if(subject.getId().equals(courseId)){
-                    found = true;
+                    found = 1;
                     break;
                 }
             }
         }
 
-        if(!found){
+        if(found == 0){
             Subject subject = new Subject(courseId,
                 data.findSubjectById(courseId).getName(),
                 data.findSubjectById(courseId).getTotalCredit());
             student.addSubject(subject);
         }
-        // else{
-        //     for(Subject subject : student.getSubjects()){
-        //         if(subject.getId().equals(courseId)){
-        //             if(courseType.equals("Lec")){
-        //                 if(subject.getAllLecture() != null){
-        //                     return false; // already added
-        //                 }
-        //                 // CourseComponent lecture = data.getCourseForStudent(courseType, courseId, section);
-        //                 // if(lecture != null) subject.addLecture(lecture);
-        //             }
-        //             else if(courseType.equals("Lab")){
-        //                 if(subject.getAllLab() != null){
-        //                     return false;
-        //                 }
-        //             }
-        //             break;
-        //         }
-        //     }
-        // }
+        else{
+            for(Subject subject : student.getSubjects()){
+                if(subject.getId().equals(courseId)){
+                    if(courseType.equals("Lec")){
+                        if(subject.getAllLecture() != null){
+                            System.out.printf("Lecture already added for subject %s\n", courseId);
+                            return 3; // already added
+                        }
+                        // CourseComponent lecture = data.getCourseForStudent(courseType, courseId, section);
+                        // if(lecture != null) subject.addLecture(lecture);
+                    }
+                    else if(courseType.equals("Lab")){
+                        if(subject.getAllLab().size() > 0){
+                            System.out.printf("Lab already added for subject %s\n", courseId);
+                            for(CourseComponent lab : subject.getAllLab()){
+                                System.out.printf("Existing lab section: %d\n", lab.getSection());
+                            }
+                            return 3;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
 
+
+
+
+                int index = 0;
         for(Subject subject : student.getSubjects()){
             if(subject.getId().equals(courseId)){
                 if(courseType.equals("Lec")){
                     CourseComponent lecture = data.getCourseForStudent(courseType, courseId, section);
+                    index = 0;
+                    for(String dayTime : lecture.getDayTimes()){
+                        String day = lecture.getDayTimes().get(index);
+                        double start = lecture.getStarts().get(index);
+                        double end = lecture.getEnds().get(index);
+
+                        for(Subject sub : student.getSubjects()){
+                            if(sub.getId().equals(courseId)){
+                                for(CourseComponent lec : sub.getAllLecture()){
+                                    for(int i = 0; i < lec.getDayTimes().size(); i++){
+                                        String existingDay = lec.getDays().get(i);
+                                        double existingStart = lec.getStarts().get(i);
+                                        double existingEnd = lec.getEnds().get(i);
+
+                                        if(day.equals(existingDay)){
+                                            if((start >= existingStart && start < existingEnd) ||
+                                               (end > existingStart && end <= existingEnd) ||
+                                               (start <= existingStart && end >= existingEnd)){
+                                                System.out.printf("Time conflict detected for student %s on %s %f-%f with existing %f-%f\n",
+                                                    student.getStudentName(), day, start, end, existingStart, existingEnd);
+                                                return 2;
+                                            }
+                                        }
+                                    }
+                                }
+                                for(CourseComponent lab : sub.getAllLab()){
+                                    for(int i = 0; i < lab.getDayTimes().size(); i++){
+                                        String existingDay = lab.getDays().get(i);
+                                        double existingStart = lab.getStarts().get(i);
+                                        double existingEnd = lab.getEnds().get(i);
+
+                                        if(day.equals(existingDay)){
+                                            if((start >= existingStart && start < existingEnd) ||
+                                               (end > existingStart && end <= existingEnd) ||
+                                               (start <= existingStart && end >= existingEnd)){
+                                                System.out.printf("Time conflict detected for student %s on %s %f-%f with existing %f-%f\n",
+                                                    student.getStudentName(), day, start, end, existingStart, existingEnd);
+                                                return 2;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     if(lecture != null) subject.addLecture(lecture);
                 }
                 else if(courseType.equals("Lab")){
                     // System.out.printf("Adding Lab %s %d for student %s\n", courseId, section, student.getStudentName());
                     CourseComponent lab = data.getCourseForStudent(courseType, courseId, section);
-                    System.out.printf("lab object = %s\n", lab);
+
+                    for(Subject sub : student.getSubjects()){
+                        if(sub.getId().equals(courseId)){
+                            for(CourseComponent lec : sub.getAllLecture()){
+                                for(int i = 0; i < lec.getDayTimes().size(); i++){
+                                    String day = lec.getDays().get(i);
+                                    double start = lec.getStarts().get(i);
+                                    double end = lec.getEnds().get(i);
+
+                                    for(int j = 0; j < lab.getDayTimes().size(); j++){
+                                        String labDay = lab.getDays().get(j);
+                                        double labStart = lab.getStarts().get(j);
+                                        double labEnd = lab.getEnds().get(j);
+
+                                        if(day.equals(labDay)){
+                                            if((labStart >= start && labStart < end) ||
+                                               (labEnd > start && labEnd <= end) ||
+                                               (labStart <= start && labEnd >= end)){
+                                                System.out.printf("Time conflict detected for student %s on %s %f-%f with existing %f-%f\n",
+                                                    student.getStudentName(), day, labStart, labEnd, start, end);
+                                                return 2;
+                                            }
+                                        }
+                                    }
+                                    for(CourseComponent existingLab : sub.getAllLab()){
+                                        for(int j = 0; j < existingLab.getDayTimes().size(); j++){
+                                            String existingDay = existingLab.getDays().get(j);
+                                            double existingStart = existingLab.getStarts().get(j);
+                                            double existingEnd = existingLab.getEnds().get(j);
+
+                                            if(day.equals(existingDay)){
+                                                if((start >= existingStart && start < existingEnd) ||
+                                                   (end > existingStart && end <= existingEnd) ||
+                                                   (start <= existingStart && end >= existingEnd)){
+                                                    System.out.printf("Time conflict detected for student %s on %s %f-%f with existing %f-%f\n",
+                                                        student.getStudentName(), day, start, end, existingStart, existingEnd);
+                                                    return 2;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                     if(lab != null) subject.addLab(lab);
                 }
                 break;
             }
         }
-        return true;
-    }    
+        return 1;
+    }
+
+    public boolean checkTimeConflict(Student student, String courseType, String courseId, int section){
+        
+        return false; // Placeholder
+    }
     
 
 
