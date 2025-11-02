@@ -294,11 +294,33 @@ public class Search extends JPanel {
                                                                     "เพิ่มรายวิชา", JOptionPane.INFORMATION_MESSAGE);
                                 break;
 
-                            case 2: JOptionPane.showMessageDialog(Search.this,  "วิชานี้มีเวลาตรงกับวิชาที่ลงทะเบียนแล้ว",
-                                                                    "เพิ่มรายวิชา", JOptionPane.INFORMATION_MESSAGE);
+                            case 2:
+                                // ตั้งค่าให้ JOptionPane ใช้ฟอนต์ Tahoma
+                                UIManager.put("OptionPane.messageFont", new Font("Tahoma", Font.PLAIN, 14));
+                                UIManager.put("OptionPane.buttonFont", new Font("Tahoma", Font.PLAIN, 14));
+
+                                int option = JOptionPane.showConfirmDialog(
+                                        Search.this,
+                                        "วิชานี้มีเวลาตรงกับวิชาที่ลงทะเบียนแล้ว ต้องการจะรอเลื่อนวิชาหรือไม่",
+                                        "เพิ่มรายวิชา",
+                                        JOptionPane.OK_CANCEL_OPTION,
+                                        JOptionPane.INFORMATION_MESSAGE
+                                );
+
+                                if (option == JOptionPane.OK_OPTION) {
+                                    // ผู้ใช้กด "ตกลง"
+                                    studentData.addDetailToStudentTmp("Lec", subject.getId(), lec.getSection(), "รอเลื่อนวิชา");
+                                    System.out.println("ตกลง");
+                                } else {
+                                    System.out.println("ยกเลิก");
+                                }
                                 break;
 
                             case 3: JOptionPane.showMessageDialog(Search.this,  "คุณลงทะเบียนแลปหรือบรรยายของวิชานี้แล้ว",
+                                                                    "เพิ่มรายวิชา", JOptionPane.INFORMATION_MESSAGE);
+                                break;
+
+                            case 4: JOptionPane.showMessageDialog(Search.this,  "หมู่บรรยายนี้ไม่เปิดให้ลงทะเบียนสำหรับสาขาของคุณ",
                                                                     "เพิ่มรายวิชา", JOptionPane.INFORMATION_MESSAGE);
                                 break;
                         }
@@ -376,12 +398,33 @@ public class Search extends JPanel {
                                                                     "เพิ่มรายวิชา", JOptionPane.INFORMATION_MESSAGE);
                                 break;
 
-                            case 2: 
-                                JOptionPane.showMessageDialog(Search.this,  "วิชานี้มีเวลาตรงกับวิชาที่ลงทะเบียนแล้ว",    
-                                                                    "เพิ่มรายวิชา", JOptionPane.INFORMATION_MESSAGE);
+                            case 2:
+                                // ตั้งค่าให้ JOptionPane ใช้ฟอนต์ Tahoma
+                                UIManager.put("OptionPane.messageFont", new Font("Tahoma", Font.PLAIN, 14));
+                                UIManager.put("OptionPane.buttonFont", new Font("Tahoma", Font.PLAIN, 14));
+
+                                int option = JOptionPane.showConfirmDialog(
+                                        Search.this,
+                                        "วิชานี้มีเวลาตรงกับวิชาที่ลงทะเบียนแล้ว ต้องการจะรอเลื่อนวิชาหรือไม่",
+                                        "เพิ่มรายวิชา",
+                                        JOptionPane.OK_CANCEL_OPTION,
+                                        JOptionPane.INFORMATION_MESSAGE
+                                );
+
+                                if (option == JOptionPane.OK_OPTION) {
+                                    // ผู้ใช้กด "ตกลง"
+                                    studentData.addDetailToStudentTmp("Lab", subject.getId(), lab.getSection(), "รอเลื่อนวิชา");
+                                    System.out.println("ตกลง");
+                                } else {
+                                    System.out.println("ยกเลิก");
+                                }
                                 break;
 
                             case 3: JOptionPane.showMessageDialog(Search.this,  "คุณลงทะเบียนแลปหรือบรรยายของวิชานี้แล้ว", 
+                                                                    "เพิ่มรายวิชา", JOptionPane.INFORMATION_MESSAGE);
+                                break;
+
+                            case 4: JOptionPane.showMessageDialog(Search.this,  "หมู่แลปนี้ไม่เปิดให้ลงทะเบียนสำหรับสาขาของคุณ",
                                                                     "เพิ่มรายวิชา", JOptionPane.INFORMATION_MESSAGE);
                                 break;
                         }

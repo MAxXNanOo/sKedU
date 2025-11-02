@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 
-import java.util.Iterator;   // ✅ เพิ่มบรรทัดนี้
+import java.util.Iterator;
 
 public class StudentData {
     private String csvFile;
@@ -114,12 +114,15 @@ public class StudentData {
         return result;
     }
 
-    public boolean addDetailToStudentTmp(String detail){
-        if(this.studentTmp != null){
-            this.studentTmp.addDetail(detail);
-            return true;
-        }
-        return false;
+    // public boolean addDetailToStudentTmp(String detail){
+    //     if(this.studentTmp != null){
+    //         this.studentTmp.addDetail(detail);
+    //         return true;
+    //     }
+    //     return false;
+    // }
+    public void addDetailToStudentTmp(String courseType, String courseId, int sec, String text){
+        studentTmp.addDetail(courseType + " " + courseId + " " + sec + " " + text);
     }
 
 
@@ -218,10 +221,12 @@ public class StudentData {
     //return 1 = success
     //return 2 = time conflict
     //return 3 = already added
+    //return 4 = major maitrong
     public int addSubjectToStudentLogin(Student student, String courseType, String courseId, int section) {
     int found = 0;
     if (student == null) return 0;
 
+    
     // ตรวจว่ามี Subject นี้อยู่หรือยัง
     for (Subject subject : student.getSubjects()) {
         if (subject.getId().equals(courseId)) {
@@ -262,8 +267,10 @@ public class StudentData {
     // เพิ่ม Lec/Lab ลงใน Subject
     for (Subject subject : student.getSubjects()) {
         if (subject.getId().equals(courseId)) {
+            
             if (courseType.equals("Lec")) {
                 CourseComponent lecture = data.getCourseForStudent(courseType, courseId, section);
+                if(!checkMajor(lecture, student.getMajor())) return 4;
                 if (lecture != null && checkTimeConflict(student, courseType, courseId, section)) {
                     subject.addLecture(lecture);
                 } else {
@@ -273,6 +280,7 @@ public class StudentData {
                 }
             } else if (courseType.equals("Lab")) {
                 CourseComponent lab = data.getCourseForStudent(courseType, courseId, section);
+                if(!checkMajor(lab, student.getMajor())) return 4;
                 if (lab != null && checkTimeConflict(student, courseType, courseId, section)) {
                     subject.addLab(lab);
                 } else {
@@ -363,7 +371,7 @@ public class StudentData {
 
     public boolean checkTimeConflict(Student student, String courseType, String courseId, int section){
         CourseComponent course = data.getCourseForStudent(courseType, courseId, section);
-
+        double limitTable = 19.0;
         if(student == null) return true;
         else if(course != null){
             for(Subject subject : student.getSubjects()){
@@ -381,7 +389,9 @@ public class StudentData {
                             if(day.equals(courseDay)){
                                 if((courseStart >= start && courseStart < end) ||
                                    (courseEnd > start && courseEnd <= end) ||
-                                   (courseStart <= start && courseEnd >= end)){
+                                   (courseStart <= start && courseEnd >= end) ||
+                                   (courseStart < limitTable && end > limitTable) ||
+                                   (courseEnd > limitTable && start < limitTable)){
                                     System.out.printf("Time conflict detected for student %s on %s %f-%f with existing %f-%f\n",
                                         student.getStudentName(), day, courseStart, courseEnd, start, end);
                                     return false;
@@ -516,10 +526,23 @@ public class StudentData {
 
 
 
-    public boolean addDetailToStudentTmp(String courseType, String courseId, int sec){
-        return true;
+
+
+    public void clearStranded(Student student){
+        // if(student){
+        //     Stranded stranded = new Stranded(student.getDetails());
+        // }
+        // else{
+        //     return false;
+        // }
     }
 
+    public boolean checkMajor(CourseComponent lecLab, String major){
+        for(String mj : lecLab.getMajors()){
+            if(major.equals(mj) || mj.equals("ALL")) return true;
+        }
+        return false;
+    }
 
 
     

@@ -47,6 +47,7 @@ public class Detail extends JPanel {
             } 
             else {
                 for (String detail : details) {
+                    if(detail.trim().isEmpty()) continue;
                     JLabel label = new JLabel(detail);
                     label.setFont(new Font("Tahoma", Font.PLAIN, 14));
                     label.setForeground(Color.BLACK);

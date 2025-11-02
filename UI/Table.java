@@ -117,7 +117,7 @@ public class Table extends JPanel {
 
                         Color dayColor = getColorByDay(day);
 
-                        boxPanel box = new boxPanel(sub.getName() + " Lecture (" + room + ")", dayColor, thaiFontSmall);
+                        boxPanel box = new boxPanel(sub.getName(), sub.getId(), room, section, dayColor, thaiFontSmall);
                         int width = (int) ((end - start) * cellWidth);
                         int height = cellHeight;
                         int xPos = (int) ((start - 8) * cellWidth);
@@ -169,7 +169,7 @@ public class Table extends JPanel {
 
                         Color dayColor = getColorByDay(day);
 
-                        boxPanel box = new boxPanel(sub.getName() + " Lab (" + room + ")", dayColor, thaiFontSmall);
+                        boxPanel box = new boxPanel(sub.getName(), sub.getId(), room, section, dayColor, thaiFontSmall);
                         int width = (int) ((end - start) * cellWidth);
                         int height = cellHeight;
                         int xPos = (int) ((start - 8) * cellWidth);
@@ -239,15 +239,37 @@ public class Table extends JPanel {
     }
 
     public class boxPanel extends JPanel {
-        public boxPanel(String text, Color color, Font font) {
+        public boxPanel(String id, String name, String room, int sec, Color color, Font font) {
             setOpaque(true);
             setBackground(color);
             setBorder(BorderFactory.createLineBorder(Color.black, 1));
+            setLayout(new GridBagLayout());
+            GridBagConstraints top = new GridBagConstraints();
+            top.insets = new Insets(1, 1, 1, 1);
+            UIManager.put("ToolTip.font", new Font("Tahoma", Font.PLAIN, 14));
+            // Label ID
+            JLabel label1 = new JLabel(id);
+            label1.setFont(new Font("Tahoma", Font.BOLD, 12));
+            label1.setToolTipText(id); // เพิ่ม tooltip
+            top.gridx = 0;
+            top.gridy = 0;
+            add(label1, top);
 
-            JLabel label = new JLabel(text, SwingConstants.CENTER);
-            label.setFont(font);
-            label.setForeground(Color.black);
-            add(label);
+            // Label Name
+            JLabel label2 = new JLabel(name);
+            label2.setFont(new Font("Tahoma", Font.BOLD, 12));
+            label2.setToolTipText(name); // เพิ่ม tooltip
+            top.gridx = 0;
+            top.gridy = 1;
+            add(label2, top);
+
+            // Label Room + Section
+            JLabel label3 = new JLabel(room + "|" + sec);
+            label3.setFont(new Font("Tahoma", Font.BOLD, 8));
+            label3.setToolTipText(room + "|" + sec); // เพิ่ม tooltip
+            top.gridx = 0;
+            top.gridy = 2;
+            add(label3, top);
         }
     }
 }
