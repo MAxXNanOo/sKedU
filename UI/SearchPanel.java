@@ -22,7 +22,7 @@ public class SearchPanel extends JPanel {
         mainPanel.setBackground(Color.WHITE);
 
         // Search component
-        Search search = new Search(studentData, data);
+        Search search = new Search(studentData, data, frame, 1);
         mainPanel.add(search, BorderLayout.CENTER);
 
         layer.add(mainPanel, JLayeredPane.DEFAULT_LAYER);

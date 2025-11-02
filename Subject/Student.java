@@ -20,6 +20,27 @@ public class Student{
         this.subjects = new ArrayList<Subject>();
     }
 
+    public Student(Student other) {
+        this.username = other.getUsername();
+        this.password = other.getPassword();
+        this.studentId = other.getId();
+        this.studentName = other.getStudentName();
+        this.major = other.getMajor();
+        if(other.getSubjects() != null){
+            this.subjects = new ArrayList<Subject>(other.getSubjects());
+        } else {
+            this.subjects = new ArrayList<Subject>();
+        }
+        if(other.getDetails() != null){
+            this.details = new ArrayList<String>(other.getDetails());
+        } else {
+            this.details = new ArrayList<String>();
+        }
+        // this.subjects = new ArrayList<>(other.getSubjects());
+        // this.details = new ArrayList<>(other.getDetails());
+    }
+
+
 
 
 

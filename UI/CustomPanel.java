@@ -24,29 +24,36 @@ public class CustomPanel extends JPanel implements ActionListener{
         background.setOpaque(true);
         background.setBackground(Color.white);
         background.setLayout(null);
-            Table table = new Table(studentData, data);
+            Table table = new Table(studentData.getStudentTmp(), data);
             table.setOpaque(false);
-            table.setBounds(125, 25, 1080, 400);
+            table.setBounds(80, 25, 1170, 400);
             background.add(table);
 
-            Search search = new Search(studentData, data);
+            Search search = new Search(studentData, data, frame, 2);
             search.setOpaque(false);
-            search.setBounds(125,450,320,160);
+            search.setBounds(80,450,850,160);
             background.add(search);
 
             Detail detail = new Detail(studentData, data);
             detail.setOpaque(false);
-            detail.setBounds(800,450,320,160);
+            detail.setBounds(930,450,320,160);
             background.add(detail);
 
             JPanel confirm = new JPanel();
-            confirm.setBounds(500,550,150,40);
+            confirm.setBounds(1050,630,150,40);
             confirm.setOpaque(true);
             confirm.setBackground(Color.green);
                 JLabel confirmLabel = new JLabel("Confirm");
                 confirmLabel.setFont(new Font("Arial", Font.BOLD, 20));
                 confirmLabel.setForeground(Color.white);
                 confirmLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                confirmLabel.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        studentData.studentConfirm();
+                        appFrame.showCustomPanel();
+                    }
+                });
                 confirm.add(confirmLabel);
             background.add(confirm);
 

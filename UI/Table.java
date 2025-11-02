@@ -9,8 +9,8 @@ import Subject.*;
 public class Table extends JPanel {
     private Student student;
 
-    public Table(StudentData studentData, Data data) {
-        this.student = studentData.getStudentLogin();
+    public Table(Student student, Data data) {
+        this.student = student;
 
         setLayout(null);
 

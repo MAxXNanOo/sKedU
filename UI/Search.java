@@ -16,80 +16,80 @@ public class Search extends JPanel {
     private JButton searchButton;
     private JPanel resultContainer;
     private Data data;
-    private JLabel statusLabel; // ข้อความสถานะด้านล่าง
+    private JLabel statusLabel; 
+    private StudentData studentData;
 
-    public Search(StudentData studentData, Data data) {
+    private AppFrame frame;
+    private int placeNum;
+
+    private final Font FONT_NORMAL = new Font("Tahoma", Font.PLAIN, 14);
+    private final Font FONT_BOLD = new Font("Tahoma", Font.BOLD, 14);
+
+    public Search(StudentData studentData, Data data, AppFrame frame, int placeNum) {
         this.data = data;
+        this.studentData = studentData;
+        this.frame = frame;
+        this.placeNum = placeNum;
+
         setLayout(new BorderLayout());
         setBackground(new Color(200, 230, 255));
         setBorder(BorderFactory.createEmptyBorder(0, (int)(1280 * 0.05), 0, 0));
 
-        // Top panel (รหัส + field + ปุ่ม)
+        // === Top Panel ===
         JPanel topPanel = new JPanel(new GridBagLayout());
         topPanel.setOpaque(false);
         GridBagConstraints grid = new GridBagConstraints();
         grid.fill = GridBagConstraints.BOTH;
         grid.weightx = 1;
 
-                JPanel panel1 = new JPanel();
-                JLabel title = new JLabel("ค้นหารหัสวิชา");
-                title.setFont(new Font("Tahoma", Font.BOLD, 14));
-                panel1.setOpaque(false);
-                panel1.add(title);
-                grid.gridx = 0;
-                grid.gridy = 0;
-                topPanel.add(panel1, grid);
+        JPanel panel1 = new JPanel();
+        JLabel title = new JLabel("ค้นหารหัสวิชา");
+        title.setFont(FONT_BOLD);
+        panel1.setOpaque(false);
+        panel1.add(title);
+        grid.gridx = 0;
+        grid.gridy = 0;
+        topPanel.add(panel1, grid);
 
-                JPanel panel2 = new JPanel();
-                panel2.setOpaque(false);
-                codeField = new JTextField(20);
-                codeField.setFont(new Font("Tahoma", Font.PLAIN, 14));
-                panel2.add(codeField);
-                grid.gridx = 1;
-                topPanel.add(panel2, grid);
+        JPanel panel2 = new JPanel();
+        panel2.setOpaque(false);
+        codeField = new JTextField(20);
+        codeField.setFont(FONT_NORMAL);
+        panel2.add(codeField);
+        grid.gridx = 1;
+        topPanel.add(panel2, grid);
 
-                JPanel panel3 = new JPanel();
-                panel3.setOpaque(false);
-                searchButton = new JButton("Search");
-                searchButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-                panel3.add(searchButton);
-                grid.gridx = 2;
-                topPanel.add(panel3, grid);
+        JPanel panel3 = new JPanel();
+        panel3.setOpaque(false);
+        searchButton = new JButton("Search");
+        searchButton.setFont(FONT_NORMAL);
+        panel3.add(searchButton);
+        grid.gridx = 2;
+        topPanel.add(panel3, grid);
 
         add(topPanel, BorderLayout.NORTH);
 
-
-
-
-
-
-
-
-
-
-
-        // Result container
+        // === Result Container ===
         resultContainer = new JPanel(new GridBagLayout());
         resultContainer.setBackground(Color.WHITE);
-                JScrollPane scrollPane = new JScrollPane(resultContainer);
-                        TitledBorder border = BorderFactory.createTitledBorder("ผลลัพธ์การค้นหา");
-                        border.setTitleFont(new Font("Tahoma", Font.BOLD, 14));
-                        scrollPane.setBorder(border);
+        JScrollPane scrollPane = new JScrollPane(resultContainer);
 
-                        // Status label ด้านล่าง scrollPane
-                        statusLabel = new JLabel(" ");
-                        statusLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-                        statusLabel.setForeground(Color.GRAY);
-                        statusLabel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0)); 
+        TitledBorder border = BorderFactory.createTitledBorder("ผลลัพธ์การค้นหา");
+        border.setTitleFont(FONT_BOLD);
+        scrollPane.setBorder(border);
 
-                        // Panel กลางรวม scrollPane + statusLabel
-                        JPanel middlePanel = new JPanel(new BorderLayout());
-                middlePanel.add(scrollPane, BorderLayout.CENTER);
+        statusLabel = new JLabel(" ");
+        statusLabel.setFont(FONT_NORMAL);
+        statusLabel.setForeground(Color.GRAY);
+        statusLabel.setBorder(BorderFactory.createEmptyBorder(5, 0, 5, 0)); 
+
+        JPanel middlePanel = new JPanel(new BorderLayout());
+        middlePanel.add(scrollPane, BorderLayout.CENTER);
         middlePanel.add(statusLabel, BorderLayout.SOUTH);
 
         add(middlePanel, BorderLayout.CENTER);
 
-        // Event
+        // === Event ===
         searchButton.addActionListener(e -> performSearch());
         codeField.getDocument().addDocumentListener(new DocumentListener() {
             public void insertUpdate(DocumentEvent e) { performSearch(); }
@@ -97,16 +97,6 @@ public class Search extends JPanel {
             public void changedUpdate(DocumentEvent e) { performSearch(); }
         });
     }
-
-
-
-
-
-
-
-
-
-
 
     private void performSearch() {
         String codePrefix = codeField.getText().trim().toUpperCase();
@@ -133,7 +123,6 @@ public class Search extends JPanel {
             return;
         }
 
-        // ถ้ามีผลลัพธ์
         statusLabel.setText("ผลลัพธ์สำหรับ: " + codePrefix);
         statusLabel.setForeground(Color.BLACK);
 
@@ -155,7 +144,6 @@ public class Search extends JPanel {
             resultContainer.add(separator, gbc);
         }
 
-        // เติมพื้นที่ว่างด้านล่าง
         gbc.gridy = row;
         gbc.weighty = 1;
         resultContainer.add(Box.createVerticalGlue(), gbc);
@@ -175,20 +163,20 @@ public class Search extends JPanel {
         leftPanel.setOpaque(false);
 
         JLabel codeLabel = new JLabel();
-        codeLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+        codeLabel.setFont(FONT_BOLD);
 
         String id = subject.getId();
         if (!highlightPrefix.isEmpty() && id.toUpperCase().startsWith(highlightPrefix)) {
             String prefix = id.substring(0, highlightPrefix.length());
             String rest = id.substring(highlightPrefix.length());
-            codeLabel.setText("<html><span style='background-color: #add8e6;'>" + prefix + "</span>" + rest + "</html>");
+            codeLabel.setText("<html><span style='background-color: #add8e6; font-family: Tahoma;'>" + prefix + "</span>" + rest + "</html>");
         } else {
             codeLabel.setText(id);
         }
         leftPanel.add(codeLabel);
 
         JLabel nameLabel = new JLabel(subject.getName());
-        nameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        nameLabel.setFont(FONT_NORMAL);
         leftPanel.add(nameLabel);
 
         panel.add(leftPanel, BorderLayout.WEST);
@@ -196,16 +184,26 @@ public class Search extends JPanel {
         JLabel creditLabel = new JLabel("หน่วยกิตรวม: " + subject.getTotalCredit()
                 + " | หมู่บรรยาย: " + subject.getAllLecture().size()
                 + " | หมู่แลป: " + subject.getAllLab().size());
-        creditLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        creditLabel.setFont(FONT_NORMAL);
         creditLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         panel.add(creditLabel, BorderLayout.EAST);
 
-       
         panel.addMouseListener(new MouseAdapter() {
-                    //Max ทำนะจ๊ะ
-                @Override
-public void mouseClicked(MouseEvent e) {
-    // สร้างข้อความส่วนหัว
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                showSubjectDetailDialog(subject);
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) { panel.setBackground(new Color(230, 245, 255)); }
+            @Override
+            public void mouseExited(MouseEvent e) { panel.setBackground(Color.WHITE); }
+        });
+
+        return panel;
+    }
+
+    private void showSubjectDetailDialog(Subject subject) {
     String top = "<html>"
             + "<div style='font-family: Tahoma; font-size: 14pt;'>"
             + "<b>รหัสวิชา:</b> <span style='color: #1a73e8;'>" + subject.getId() + "</span><br>"
@@ -213,68 +211,139 @@ public void mouseClicked(MouseEvent e) {
             + "<b>หน่วยกิตรวม:</b> " + subject.getTotalCredit() + "<br>"
             + "</div></html>";
 
-    // สร้างข้อความรายละเอียด lecture
-    String courseLecture = "<html><div style='font-family: Tahoma; font-size: 14pt;'>";
-    if (subject.getAllLecture().isEmpty()) {
-        courseLecture += "<b>ไม่มีหมู่บรรยาย</b><br>";
-    } else {
-        for (CourseComponent lec : subject.getAllLecture()) {
-            courseLecture += "<b>หมู่บรรยายที่ " + lec.getSection() + ":</b><br>"
-                    + "&nbsp;&nbsp;&nbsp;&nbsp;หน่วยกิต: " + lec.getCredit() + "<br>"
-                    + "&nbsp;&nbsp;&nbsp;&nbsp;วันเวลา: " + lec.getDayTimes() + "<br>"
-                    + "&nbsp;&nbsp;&nbsp;&nbsp;ห้อง: " + lec.getRooms() + "<br>"
-                    + "&nbsp;&nbsp;&nbsp;&nbsp;อาจารย์: " + lec.getTeacherNames() + "<br><br>";
-        }
-    }
-    courseLecture += "</div></html>";
-
-    // สร้างข้อความรายละเอียด lab
-    String courseLab = "<html><div style='font-family: Tahoma; font-size: 14pt;'>";
-    if (subject.getAllLab().isEmpty()) {
-        courseLab += "<b>ไม่มีหมู่แลป</b><br>";
-    } else {
-        for (CourseComponent lab : subject.getAllLab()) {
-            courseLab += "<b>หมู่แลปที่ " + lab.getSection() + ":</b><br>"
-                    + "&nbsp;&nbsp;&nbsp;&nbsp;หน่วยกิต: " + lab.getCredit() + "<br>"
-                    + "&nbsp;&nbsp;&nbsp;&nbsp;วันเวลา: " + lab.getDayTimes() + "<br>"
-                    + "&nbsp;&nbsp;&nbsp;&nbsp;ห้อง: " + lab.getRooms() + "<br>"
-                    + "&nbsp;&nbsp;&nbsp;&nbsp;อาจารย์: " + lab.getTeacherNames() + "<br><br>";
-        }
-    }
-    courseLab += "</div></html>";
-
-    // สร้าง JPanel หลัก
     JPanel messagePanel = new JPanel(new BorderLayout());
     JLabel topLabel = new JLabel(top);
+    topLabel.setFont(FONT_NORMAL);
     messagePanel.add(topLabel, BorderLayout.NORTH);
 
-    // รวม lecture + lab เป็น JPanel เดียว
     JPanel detailPanel = new JPanel();
     detailPanel.setLayout(new BoxLayout(detailPanel, BoxLayout.Y_AXIS));
 
-    JLabel lectureLabel = new JLabel(courseLecture);
-    JLabel labLabel = new JLabel(courseLab);
+    // ==== Lecture Sections ====
+    JLabel lecTitle = new JLabel("<html><b>หมู่บรรยาย:</b></html>");
+    lecTitle.setFont(FONT_BOLD);
+    detailPanel.add(lecTitle);
 
-    detailPanel.add(lectureLabel);
-    detailPanel.add(Box.createVerticalStrut(10)); // เว้นบรรทัด
-    detailPanel.add(labLabel);
+    if (subject.getAllLecture().isEmpty()) {
+        JLabel noLec = new JLabel("ไม่มีหมู่บรรยาย");
+        noLec.setFont(FONT_NORMAL);
+        detailPanel.add(noLec);
+    } else {
+        for (CourseComponent lec : subject.getAllLecture()) {
+            JPanel lecPanel = new JPanel();
+            lecPanel.setLayout(new BoxLayout(lecPanel, BoxLayout.Y_AXIS));
+            lecPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            lecPanel.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(new Color(200, 220, 255)),
+                    BorderFactory.createEmptyBorder(8, 10, 8, 10)
+            ));
+            lecPanel.setBackground(new Color(240, 247, 255));
 
-    // ใส่ JScrollPane
+            JLabel secLabel = new JLabel("หมู่บรรยายที่ " + lec.getSection());
+            secLabel.setFont(FONT_BOLD);
+            JLabel credit = new JLabel("หน่วยกิต: " + lec.getCredit());
+            JLabel dayTime = new JLabel("วันเวลา: " + lec.getDayTimes());
+            JLabel room = new JLabel("ห้อง: " + lec.getRooms());
+            JLabel teacher = new JLabel("อาจารย์: " + lec.getTeacherNames());
+
+            for (JLabel lbl : new JLabel[]{credit, dayTime, room, teacher}) {
+                lbl.setFont(FONT_NORMAL);
+            }
+
+            JButton selectBtn = new JButton("เลือกหมู่บรรยายนี้");
+            selectBtn.setFont(FONT_NORMAL);
+            selectBtn.setBackground(new Color(210, 230, 255));
+            selectBtn.setFocusPainted(false);
+            selectBtn.addActionListener(ev -> {
+                studentData.addSubjectToStudentLogin(studentData.getStudentTmp(), "Lec", subject.getId(), lec.getSection());
+                JOptionPane.showMessageDialog(Search.this,
+                        "เพิ่มหมู่บรรยายที่ " + lec.getSection() + " เรียบร้อย!",
+                        "เพิ่มรายวิชา", JOptionPane.INFORMATION_MESSAGE);
+                if(placeNum == 2){
+                    frame.showCustomPanel();
+                }
+            });
+
+            lecPanel.add(secLabel);
+            lecPanel.add(credit);
+            lecPanel.add(dayTime);
+            lecPanel.add(room);
+            lecPanel.add(teacher);
+            lecPanel.add(Box.createVerticalStrut(5));
+            lecPanel.add(selectBtn);
+            lecPanel.add(Box.createVerticalStrut(5));
+
+            detailPanel.add(lecPanel);
+            detailPanel.add(Box.createVerticalStrut(10));
+        }
+    }
+
+    detailPanel.add(Box.createVerticalStrut(15));
+
+    // ==== Lab Sections ====
+    JLabel labTitle = new JLabel("<html><b>หมู่แลป:</b></html>");
+    labTitle.setFont(FONT_BOLD);
+    detailPanel.add(labTitle);
+
+    if (subject.getAllLab().isEmpty()) {
+        JLabel noLab = new JLabel("ไม่มีหมู่แลป");
+        noLab.setFont(FONT_NORMAL);
+        detailPanel.add(noLab);
+    } else {
+        for (CourseComponent lab : subject.getAllLab()) {
+            JPanel labPanel = new JPanel();
+            labPanel.setLayout(new BoxLayout(labPanel, BoxLayout.Y_AXIS));
+            labPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+            labPanel.setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(new Color(200, 255, 200)),
+                    BorderFactory.createEmptyBorder(8, 10, 8, 10)
+            ));
+            labPanel.setBackground(new Color(240, 255, 240));
+
+            JLabel secLabel = new JLabel("หมู่แลปที่ " + lab.getSection());
+            secLabel.setFont(FONT_BOLD);
+            JLabel credit = new JLabel("หน่วยกิต: " + lab.getCredit());
+            JLabel dayTime = new JLabel("วันเวลา: " + lab.getDayTimes());
+            JLabel room = new JLabel("ห้อง: " + lab.getRooms());
+            JLabel teacher = new JLabel("อาจารย์: " + lab.getTeacherNames());
+
+            for (JLabel lbl : new JLabel[]{credit, dayTime, room, teacher}) {
+                lbl.setFont(FONT_NORMAL);
+            }
+
+            JButton selectBtn = new JButton("เลือกหมู่แลปนี้");
+            selectBtn.setFont(FONT_NORMAL);
+            selectBtn.setBackground(new Color(210, 255, 210));
+            selectBtn.setFocusPainted(false);
+            selectBtn.addActionListener(ev -> {
+                studentData.addSubjectToStudentLogin(studentData.getStudentTmp(), "Lab", subject.getId(), lab.getSection());
+                JOptionPane.showMessageDialog(Search.this,
+                        "เพิ่มหมู่แลปที่ " + lab.getSection() + " เรียบร้อย!",
+                        "เพิ่มรายวิชา", JOptionPane.INFORMATION_MESSAGE);
+                if(placeNum == 2){
+                    frame.showCustomPanel();
+                }
+            });
+
+            labPanel.add(secLabel);
+            labPanel.add(credit);
+            labPanel.add(dayTime);
+            labPanel.add(room);
+            labPanel.add(teacher);
+            labPanel.add(Box.createVerticalStrut(5));
+            labPanel.add(selectBtn);
+            labPanel.add(Box.createVerticalStrut(5));
+
+            detailPanel.add(labPanel);
+            detailPanel.add(Box.createVerticalStrut(10));
+        }
+    }
+
     JScrollPane scrollPane = new JScrollPane(detailPanel);
-    scrollPane.setPreferredSize(new Dimension(400, 300));
+    scrollPane.setPreferredSize(new Dimension(500, 400));
     messagePanel.add(scrollPane, BorderLayout.CENTER);
 
-    // แสดง JOptionPane
     JOptionPane.showMessageDialog(Search.this, messagePanel, "รายละเอียดวิชา", JOptionPane.PLAIN_MESSAGE);
 }
 
-
-    @Override
-    public void mouseEntered(MouseEvent e) { panel.setBackground(new Color(230, 245, 255)); }
-    @Override
-    public void mouseExited(MouseEvent e) { panel.setBackground(Color.WHITE); }
-});
-
-        return panel;
-    }
 }
