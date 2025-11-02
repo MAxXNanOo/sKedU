@@ -172,6 +172,25 @@ public class StudentData {
                 data.findSubjectById(courseId).getTotalCredit());
             student.addSubject(subject);
         }
+        // else{
+        //     for(Subject subject : student.getSubjects()){
+        //         if(subject.getId().equals(courseId)){
+        //             if(courseType.equals("Lec")){
+        //                 if(subject.getAllLecture() != null){
+        //                     return false; // already added
+        //                 }
+        //                 // CourseComponent lecture = data.getCourseForStudent(courseType, courseId, section);
+        //                 // if(lecture != null) subject.addLecture(lecture);
+        //             }
+        //             else if(courseType.equals("Lab")){
+        //                 if(subject.getAllLab() != null){
+        //                     return false;
+        //                 }
+        //             }
+        //             break;
+        //         }
+        //     }
+        // }
 
         for(Subject subject : student.getSubjects()){
             if(subject.getId().equals(courseId)){

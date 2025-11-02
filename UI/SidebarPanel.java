@@ -96,7 +96,7 @@ public class SidebarPanel extends JPanel {
                 addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 1);
                 addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 1);
                 addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 1);
-                addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 1);
+                addText(customIconPanel, "Icon/grid.png", "ลงทะเบียนเรียน", 1);
             }
             public void mouseExited(MouseEvent e){
                 Point mousePos = MouseInfo.getPointerInfo().getLocation();
@@ -107,7 +107,7 @@ public class SidebarPanel extends JPanel {
                     addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 0);
                     addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 0);
                     addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 0);
-                    addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 0);
+                    addText(customIconPanel, "Icon/grid.png", "ลงทะเบียนเรียน", 0);
                 } 
             }
         });
@@ -121,7 +121,7 @@ public class SidebarPanel extends JPanel {
                     addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 1);
                     addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 1);
                     addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 1);
-                    addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 1);
+                    addText(customIconPanel, "Icon/grid.png", "ลงทะเบียนเรียน", 1);
                 }
                 public void mouseExited(MouseEvent e){
                     Point mousePos = MouseInfo.getPointerInfo().getLocation();
@@ -132,7 +132,7 @@ public class SidebarPanel extends JPanel {
                         addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 0);
                         addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 0);
                         addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 0);
-                        addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 0);
+                        addText(customIconPanel, "Icon/grid.png", "ลงทะเบียนเรียน", 0);
                     } 
                 }
             });
@@ -146,7 +146,7 @@ public class SidebarPanel extends JPanel {
                     addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 1);
                     addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 1);
                     addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 1);
-                    addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 1);
+                    addText(customIconPanel, "Icon/grid.png", "ลงทะเบียนเรียน", 1);
                 }
                 public void mouseExited(MouseEvent e){
                     Point mousePos = MouseInfo.getPointerInfo().getLocation();
@@ -157,7 +157,7 @@ public class SidebarPanel extends JPanel {
                         addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 0);
                         addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 0);
                         addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 0);
-                        addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 0);
+                        addText(customIconPanel, "Icon/grid).png", "ลงทะเบียนเรียน", 0);
                     } 
                 }
             });
@@ -171,7 +171,7 @@ public class SidebarPanel extends JPanel {
                     addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 1);
                     addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 1);
                     addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 1);
-                    addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 1);
+                    addText(customIconPanel, "Icon/grid.png", "ลงทะเบียนเรียน", 1);
                 }
                 public void mouseExited(MouseEvent e){
                     Point mousePos = MouseInfo.getPointerInfo().getLocation();
@@ -182,7 +182,7 @@ public class SidebarPanel extends JPanel {
                         addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 0);
                         addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 0);
                         addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 0);
-                        addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 0);
+                        addText(customIconPanel, "Icon/grid.png", "ลงทะเบียนเรียน", 0);
                     } 
                 }
             });
@@ -196,7 +196,7 @@ public class SidebarPanel extends JPanel {
                     addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 1);
                     addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 1);
                     addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 1);
-                    addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 1);
+                    addText(customIconPanel, "Icon/grid.png", "ลงทะเบียนเรียน", 1);
                 }
                 public void mouseExited(MouseEvent e){
                     Point mousePos = MouseInfo.getPointerInfo().getLocation();
@@ -207,7 +207,7 @@ public class SidebarPanel extends JPanel {
                         addText(profilePanel, "Icon/Pofile.png", studentData.getStudentLogin().getStudentName(), 0);
                         addText(tableIconPanel, "Icon/OpenBook.png", "ตารางเรียน", 0);
                         addText(searchIconPanel, "Icon/grid.png", "รายวิชาที่เปิดให้ลงทะเบียน", 0);
-                        addText(customIconPanel, "Icon/grid (1).png", "ลงทะเบียนเรียน", 0);
+                        addText(customIconPanel, "Icon/grid.png", "ลงทะเบียนเรียน", 0);
                     } 
                 }
             });
