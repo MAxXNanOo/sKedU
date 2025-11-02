@@ -4,21 +4,52 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import Subject.*;
+
 public class TablePanel extends JPanel implements ActionListener{
     private AppFrame appFrame;
     private JButton goToLoginPanel;
     private JButton goToSearchPanel;
     private JButton goToCustomPanel;
 
-    public TablePanel(AppFrame frame){
+    public TablePanel(AppFrame frame, int width, int height, StudentData studentData, Data data){
         this.appFrame = frame;
 
-        ImageIcon orgImg = new ImageIcon("Icon/Pofile.png");
-        Image sclImg = orgImg.getImage().getScaledInstance(32, 32, Image.SCALE_SMOOTH);
-        goToLoginPanel = new JButton(new ImageIcon(sclImg));
-        goToLoginPanel.addActionListener(e -> {appFrame.showLogin();});
+        this.appFrame = frame;
+        setLayout(null);
 
-        add(goToLoginPanel);
+
+        JLayeredPane layer = new JLayeredPane();
+        layer.setBounds(0, 0, width, height);
+
+        JPanel background = new JPanel();
+        background.setBounds(0, 0, width, height);
+        background.setOpaque(true);
+        background.setBackground(Color.WHITE);
+        background.setLayout(null);
+            Table table = new Table(frame, studentData, studentData.getStudentLogin(), data);
+            table.setOpaque(false);
+            table.setBounds(80, 25, 1170, 400);
+            background.add(table);
+
+            Detail detail = new Detail(studentData.getStudentTmp(), data);
+            detail.setOpaque(false);
+            detail.setBounds(930,500,320,160);
+            background.add(detail);
+
+        layer.add(background, JLayeredPane.DEFAULT_LAYER);
+
+
+        SidebarPanel sidebar = new SidebarPanel(frame, width, height, 0, studentData, data);
+        sidebar.setOpaque(false);
+        sidebar.setBounds(0, 0, 200, height);
+        layer.add(sidebar, JLayeredPane.PALETTE_LAYER);
+
+
+
+
+
+        add(layer, BorderLayout.CENTER);
     }
 
     @Override

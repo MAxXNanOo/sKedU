@@ -11,12 +11,15 @@ public class Subject {
 
 
 
-    public Subject(String id, String name) {
+    public Subject(String id, String name, int totalCredit) {
         this.id = id;
         this.name = name;
+        this.totalCredit = totalCredit;
         this.lectures = new ArrayList<>();
         this.labs = new ArrayList<>();
     }
+
+    
 
 
 
@@ -28,6 +31,12 @@ public class Subject {
 
     // Set
 
+    public void setId(String id) {
+        this.id = id;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
     public void setTotalCredit(int c){
         this.totalCredit = c;
     }

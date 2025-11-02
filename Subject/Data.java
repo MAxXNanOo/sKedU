@@ -21,18 +21,30 @@ public class Data {
     //Set
 
     //Jang 5/10
-    public void setSubjects(){
-        
-        //อันนี้คือตัวอย่างการ สร้างวิชาเเละเเอด Lecture เเละ Lab เข้าไปในวิชานั้น 
 
-        // Subject s1 = new Subject("01423345-65", "Data_I", 3);
-        // CourseComponent lec1 = new CourseComponent(2, 700, "วันอังคาร 10:30-12:00,วันพฤหัสบดี", "LH2-201 , LH2-201", "E29,E34", 50, "WaranYa haha, bunyaratddddddddddddddd");
-        // s1.addLecture(lec1);
-        // CourseComponent lab = new CourseComponent(1, 711, "วันพฤหัสบดี 16:00-18:00", "E8404", "E29", 60, "Bunyarat");
-        // s1.addLab(lab);
-        // CourseComponent CourseComponent = new CourseComponent(1, 712, "วันศุกร์ 16:00-18:00", "E8404", "E29", 60, "Bunyarat");
-        // s1.addLab(lab);
-        // subjects.add(s1);
+    // Safe integer parsing
+    public int safeParseInt(String s) {
+        try {
+            return Integer.parseInt(s.trim());
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    // Find a subject by its ID
+    public Subject findSubjectById(String id) {
+        for (Subject s : subjects) {
+            // System.out.printf("Checking subject ID: %s against %s\n", s.getId(), id);
+            if (s.getId().equals(id)) {
+                // System.out.printf("Found subject: %s - %s\n", s.getId(), s.getName());
+                return s;
+            }
+        }
+        return null;
+    }
+
+    // Read CSV
+    public void setSubjects(){
 
         Subject subject = null;
 
@@ -64,7 +76,7 @@ public class Data {
                 if (values.get(0).matches("\\d{8}-\\d{2}.*")) {
                     id = values.get(0).replaceAll(pattern, "$1");
                     name = values.get(0).replaceAll(pattern, "$2").trim();
-                    subject = new Subject(id, name);
+                    subject = new Subject(id, name, 0);
                     subjects.add(subject);
                 }
             
@@ -123,12 +135,6 @@ public class Data {
 
 
 
-
-
-
-
-
-
     //Get
 
     //Wa 5/10
@@ -182,16 +188,46 @@ public class Data {
 
     }
 
+    public CourseComponent getCourseForStudent(String type, String id, int section){
+        for(Subject sub : subjects){
+            if(sub.getId().equals(id)){
+                if(type.equals("Lec")){
+                    for(CourseComponent lec : sub.getAllLecture()){
+                        if(lec.getSection() == section){
+                            return lec;
+                        }
+                    }
+                }
+                else if(type.equals("Lab")){
+                    for(CourseComponent lab : sub.getAllLab()){
+                        if(lab.getSection() == section){
+                            return lab;
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     public void displayAll(){
         for(Subject sub : subjects){
             System.out.printf("\n%s %s\n",sub.getId(), sub.getName());
 
+            System.out.printf("  Lecture\n");
             for(CourseComponent lec : sub.getAllLecture()){
                 System.out.printf("    %d %d %d %s %s %s %d %s\n", sub.getTotalCredit(), lec.getCredit(), lec.getSection(), lec.getDayTimes(), lec.getRooms(), lec.getMajors(), lec.getMaxStudent(), lec.getTeacherNames());
+            }
+            System.out.printf("  Lab\n");
+            for(CourseComponent lab : sub.getAllLab()){
+                System.out.printf("    %d %d %d %s %s %s %d %s\n", sub.getTotalCredit(), lab.getCredit(), lab.getSection(), lab.getDayTimes(), lab.getRooms(), lab.getMajors(), lab.getMaxStudent(), lab.getTeacherNames());
             }
         }
     }
 
 
+    public ArrayList<Subject> getSubjects(){
+        return subjects;
+    }
 }
 
