@@ -9,7 +9,7 @@ import Subject.*;
 public class Table extends JPanel {
     private Student student;
 
-    public Table(Student student, Data data) {
+    public Table(AppFrame frame, StudentData studentData,Student student, Data data) {
         this.student = student;
 
         setLayout(null);
@@ -114,7 +114,7 @@ public class Table extends JPanel {
                                 Double start = comp.getStarts().get(index);
                                 Double end = comp.getEnds().get(index);
                                 String room = comp.getRooms().get(index);
-
+                                int section = comp.getSection();
                                 // ✅ สีตามวัน
                                 Color dayColor = getColorByDay(day);
 
@@ -136,6 +136,36 @@ public class Table extends JPanel {
                                 }
 
                                 box.setBounds(xPos, yPos, width, height);
+                                box.addMouseListener(new MouseAdapter() {
+                                    @Override
+                                    public void mouseClicked(MouseEvent e) {
+                                        // ตั้งฟอนต์ Tahoma ให้ข้อความใน JOptionPane
+                                        UIManager.put("OptionPane.messageFont", new Font("Tahoma", Font.PLAIN, 14));
+                                        UIManager.put("OptionPane.buttonFont", new Font("Tahoma", Font.PLAIN, 14));
+
+                                        // ตัวเลือกปุ่ม
+                                        Object[] options = {"ปิด", "ถอนวิชา"};
+
+                                        // แสดง dialog
+                                        int choice = JOptionPane.showOptionDialog(
+                                                null,
+                                                sub.getName() + " Lab\nเวลา: " + dayTime + "\nห้อง: " + room,
+                                                "รายละเอียดวิชา",
+                                                JOptionPane.YES_NO_OPTION,
+                                                JOptionPane.INFORMATION_MESSAGE,
+                                                null,
+                                                options,
+                                                options[0]
+                                        );
+
+                                        // ถ้ากด "ถอนวิชา"
+                                        if (choice == 1) {
+                                            studentData.deleteSubjectFromStudentTmp("Lec", sub.getId(), section);
+                                            frame.showCustomPanel();
+                                        }
+                                    }
+                                });
+
                                 filter.add(box);
                                 index++;
                             }
@@ -149,6 +179,7 @@ public class Table extends JPanel {
                                 Double start = comp.getStarts().get(index);
                                 Double end = comp.getEnds().get(index);
                                 String room = comp.getRooms().get(index);
+                                int section = comp.getSection();
 
                                 // ✅ สีตามวัน
                                 Color dayColor = getColorByDay(day);
@@ -171,6 +202,35 @@ public class Table extends JPanel {
                                 }
 
                                 box.setBounds(xPos, yPos, width, height);
+                                box.addMouseListener(new MouseAdapter() {
+                                    @Override
+                                    public void mouseClicked(MouseEvent e) {
+                                        // ตั้งฟอนต์ Tahoma ให้ข้อความใน JOptionPane
+                                        UIManager.put("OptionPane.messageFont", new Font("Tahoma", Font.PLAIN, 14));
+                                        UIManager.put("OptionPane.buttonFont", new Font("Tahoma", Font.PLAIN, 14));
+
+                                        // ตัวเลือกปุ่ม
+                                        Object[] options = {"ปิด", "ถอนวิชา"};
+
+                                        // แสดง dialog
+                                        int choice = JOptionPane.showOptionDialog(
+                                                null,
+                                                sub.getName() + " Lab\nเวลา: " + dayTime + "\nห้อง: " + room,
+                                                "รายละเอียดวิชา",
+                                                JOptionPane.YES_NO_OPTION,
+                                                JOptionPane.INFORMATION_MESSAGE,
+                                                null,
+                                                options,
+                                                options[0]
+                                        );
+
+                                        // ถ้ากด "ถอนวิชา"
+                                        if (choice == 1) {
+                                            studentData.deleteSubjectFromStudentTmp("Lab", sub.getId(), section);
+                                            frame.showCustomPanel();
+                                        }
+                                    }
+                                });
                                 filter.add(box);
                                 index++;
                             }

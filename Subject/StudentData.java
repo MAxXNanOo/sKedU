@@ -112,6 +112,14 @@ public class StudentData {
         return result;
     }
 
+    public boolean addDetailToStudentTmp(String detail){
+        if(this.studentTmp != null){
+            this.studentTmp.addDetail(detail);
+            return true;
+        }
+        return false;
+    }
+
 
     public boolean deleteSubjectFromStudentTmp(String courseType, String courseId, int section){
         if(courseType.equals("Lec")){

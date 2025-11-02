@@ -83,8 +83,4 @@ public class Student{
         }
         this.details.add(detail);
     }
-    
-
-
-
 }

@@ -24,7 +24,7 @@ public class CustomPanel extends JPanel implements ActionListener{
         background.setOpaque(true);
         background.setBackground(Color.white);
         background.setLayout(null);
-            Table table = new Table(studentData.getStudentTmp(), data);
+            Table table = new Table(frame, studentData, studentData.getStudentTmp(), data);
             table.setOpaque(false);
             table.setBounds(80, 25, 1170, 400);
             background.add(table);
@@ -34,7 +34,7 @@ public class CustomPanel extends JPanel implements ActionListener{
             search.setBounds(80,450,850,160);
             background.add(search);
 
-            Detail detail = new Detail(studentData, data);
+            Detail detail = new Detail(studentData.getStudentTmp(), data);
             detail.setOpaque(false);
             detail.setBounds(930,450,320,160);
             background.add(detail);

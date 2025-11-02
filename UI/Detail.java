@@ -2,98 +2,75 @@ package UI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-
+import java.util.ArrayList;
 import Subject.*;
 
 public class Detail extends JPanel {
 
-    public Detail(StudentData studentData, Data data) {
+    public Detail(Student student, Data data) {
 
-        setLayout(null);
-        JPanel sidebar = new JPanel();
-        sidebar.setBounds(0, 0, 320, 160);
-        sidebar.setOpaque(true);
-        sidebar.setBackground(Color.gray);
-        sidebar.setLayout(new BoxLayout(sidebar, BoxLayout.Y_AXIS));
+        setLayout(new BorderLayout());
+        setBackground(Color.LIGHT_GRAY);
 
-        // ✅ สร้าง Font ไทยที่อ่านได้
-        Font thaiFont = new Font("Tahoma", Font.PLAIN, 16);
+        // ===== Header =====
+        JPanel headerPanel = new JPanel();
+        headerPanel.setBackground(Color.GRAY);
+        headerPanel.setPreferredSize(new Dimension(400, 50));
 
-        Student student = studentData.getStudentLogin();
+        JLabel headerLabel = new JLabel("รายละเอียดนักศึกษา", SwingConstants.CENTER);
+        headerLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
+        headerLabel.setForeground(Color.BLACK);
+        headerPanel.add(headerLabel);
 
-        if (student != null) {
-            JLabel nameLabel = new JLabel("ชื่อ: " + student.getStudentName());
-            nameLabel.setFont(thaiFont);
-            sidebar.add(nameLabel);
+        add(headerPanel, BorderLayout.NORTH);
 
-            JLabel idLabel = new JLabel("รหัส: " + student.getStudentId());
-            idLabel.setFont(thaiFont);
-            sidebar.add(idLabel);
+        // ===== Content =====
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+        contentPanel.setBackground(Color.WHITE);
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
 
-            JLabel majorLabel = new JLabel("สาขา: " + student.getMajor());
-            majorLabel.setFont(thaiFont);
-            sidebar.add(majorLabel);
+        if (student == null) {
+            JLabel notLoggedIn = new JLabel("ยังไม่มีนักเรียนล็อกอิน");
+            notLoggedIn.setFont(new Font("Tahoma", Font.PLAIN, 14));
+            notLoggedIn.setForeground(Color.BLACK);
+            contentPanel.add(notLoggedIn);
+        } 
+        else {
+            ArrayList<String> details = student.getDetails();
 
-            sidebar.add(Box.createVerticalStrut(10));
+            if (details == null || details.isEmpty()) {
+                JLabel noDetail = new JLabel("ยังไม่มีรายละเอียด");
+                noDetail.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                noDetail.setForeground(Color.BLACK);
+                contentPanel.add(noDetail);
+            } 
+            else {
+                for (String detail : details) {
+                    JLabel label = new JLabel(detail);
+                    label.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                    label.setForeground(Color.BLACK);
+                    label.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-            if (student.getDetails() != null && !student.getDetails().isEmpty()) {
-                JLabel detailLabel = new JLabel("รายละเอียดเพิ่มเติม:");
-                detailLabel.setFont(thaiFont);
-                sidebar.add(detailLabel);
+                    JPanel panel = new JPanel(new BorderLayout());
+                    panel.setBackground(Color.WHITE);
+                    panel.setBorder(BorderFactory.createCompoundBorder(
+                            BorderFactory.createLineBorder(Color.LIGHT_GRAY),
+                            BorderFactory.createEmptyBorder(5, 10, 5, 10)
+                    ));
+                    panel.add(label, BorderLayout.CENTER);
 
-                for (String d : student.getDetails()) {
-                    JLabel dLabel = new JLabel("• " + d);
-                    dLabel.setFont(thaiFont);
-                    sidebar.add(dLabel);
+                    contentPanel.add(panel);
+                    contentPanel.add(Box.createVerticalStrut(5));
                 }
             }
-
-            sidebar.add(Box.createVerticalStrut(10));
-
-            // แสดงรายวิชา
-            if (student.getSubjects() != null && !student.getSubjects().isEmpty()) {
-                JLabel subjTitle = new JLabel("รายวิชา:");
-                subjTitle.setFont(thaiFont);
-                sidebar.add(subjTitle);
-
-                for (Subject s : student.getSubjects()) {
-                    JLabel subjLabel = new JLabel("• " + s.getName());
-                    subjLabel.setFont(thaiFont);
-                    sidebar.add(subjLabel);
-
-                    for (Subject realSub : data.getSubjects()) {
-                        if (realSub.getId().equals(s.getId())) {
-
-                            // Lecture
-                            if (!realSub.getAllLecture().isEmpty()) {
-                                for (CourseComponent lec : realSub.getAllLecture()) {
-                                    JLabel lecLabel = new JLabel("   Lecture Sec: " + lec.getSection() +
-                                            ", Credit: " + lec.getCredit());
-                                    lecLabel.setFont(thaiFont);
-                                    sidebar.add(lecLabel);
-                                }
-                            }
-
-                            // Lab
-                            if (!realSub.getAllLab().isEmpty()) {
-                                for (CourseComponent lab : realSub.getAllLab()) {
-                                    JLabel labLabel = new JLabel("   Lab Sec: " + lab.getSection() +
-                                            ", Credit: " + lab.getCredit());
-                                    labLabel.setFont(thaiFont);
-                                    sidebar.add(labLabel);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } else {
-            JLabel noStudent = new JLabel("ยังไม่มีนักเรียนล็อกอิน");
-            noStudent.setFont(thaiFont);
-            sidebar.add(noStudent);
         }
 
-        add(sidebar);
+        // ===== Scroll =====
+        JScrollPane scrollPane = new JScrollPane(contentPanel);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+
+        add(scrollPane, BorderLayout.CENTER);
     }
 }

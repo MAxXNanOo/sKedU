@@ -27,12 +27,12 @@ public class TablePanel extends JPanel implements ActionListener{
         background.setOpaque(true);
         background.setBackground(Color.WHITE);
         background.setLayout(null);
-            Table table = new Table(studentData.getStudentLogin(), data);
+            Table table = new Table(frame, studentData, studentData.getStudentLogin(), data);
             table.setOpaque(false);
             table.setBounds(80, 25, 1170, 400);
             background.add(table);
 
-            Detail detail = new Detail(studentData, data);
+            Detail detail = new Detail(studentData.getStudentTmp(), data);
             detail.setOpaque(false);
             detail.setBounds(320,500,320,160);
             background.add(detail);
